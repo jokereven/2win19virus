@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": "text-1",
+      "type": "text",
+      "data": "React",
+      "color": "#FF0000",
+      "size": "12px",
+      "width": "100px",
+      "height": "20px",
+      "left": "100px",
+      "top": "100px"
+    },
+    {
+      "id": "text-2",
+      "type": "text",
+      "data": "Ts",
+      "color": "#00FF00",
+      "size": "12px",
+      "width": "100px",
+      "height": "20px",
+      "left": "100px",
+      "top": "150px"
+    },
+    {
+      "id": "text-3",
+      "type": "text",
+      "data": "LowCode",
+      "color": "#0000FF",
+      "size": "12px",
+      "width": "100px",
+      "height": "20px",
+      "left": "100px",
+      "top": "200px"
+    }
+  ]
+}

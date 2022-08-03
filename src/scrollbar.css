@@ -13,28 +13,28 @@
 ::-webkit-scrollbar-thumb:horizontal {
   /*水平滚动条的样式*/
   width: 6px;
-  background-color: #eaeef1;
-  border-radius: 4px;
+  background-color: #00a3af;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:vertical {
   /*垂直滚动条的样式*/
   width: 6px;
   height: 8px;
-  background-color: #eaeef1;
-  border-radius: 4px;
+  background-color: #59b9c6;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   /*滚动条的hover样式*/
   height: 8px;
-  background-color: #d4dde1;
-  border-radius: 4px;
+  background-color: #008899;
+  border-radius: 0px;
 }
 
 /* 滚动条没有滑块的轨道部分. */
 ::-webkit-scrollbar-track-piece {
-  background-color: #eaeef1; /*滚动条的背景颜色*/
+  background-color: #83ccd2; /*滚动条的背景颜色*/
   border-radius: 0; /*滚动条的圆角宽度*/
 }
 
