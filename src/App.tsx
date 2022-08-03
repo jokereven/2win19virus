@@ -2,14 +2,14 @@ import React, { useState } from "react";
 // React dnd
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-// App Scrollbar css
+// App scrollbar css
 import "./App.css";
 // mock
 import drawData from "./mock/drawData.json";
 import { LeftPanel } from "./pages/LeftPanel";
 import MidPanel from "./pages/MidPanel";
 import RightPanel from "./pages/RightPanel";
-import "./Scrollbar.css";
+import "./scrollbar.css";
 import { RIGHT_PANEL_TYPE } from "./types";
 
 const App: React.FC = () => {
