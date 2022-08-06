@@ -1,3 +1,4 @@
+import { Header } from "pages/Header";
 import React, { useState } from "react";
 // React dnd
 import { DndProvider } from "react-dnd";
@@ -20,7 +21,7 @@ const App: React.FC = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <div className="header">2win19virus</div>
+        <Header></Header>
         <div className="content">
           <LeftPanel />
           <MidPanel
