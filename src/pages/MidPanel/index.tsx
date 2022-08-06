@@ -15,7 +15,6 @@ type TextComponentDropedProps = {
   setRightPanelType: Function;
   setRightRanelElementId: Function;
 };
-
 function TextComponentDroped({
   item,
   setRightPanelType,

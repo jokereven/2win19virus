@@ -1,16 +1,17 @@
 import React from "react";
-import { TextComponent } from "../../components/TextCompoent";
-import { LeftMaterialContiner, LeftPanelWrapper } from "./style";
+import Sider from "../../components/Sider";
+
+// import { LeftMaterialContiner, LeftPanelWrapper } from "./style";
+import "./style.css";
 
 export const LeftPanel: React.FC = () => {
   return (
-    <LeftPanelWrapper>
-      <div>
-        <LeftMaterialContiner>
-          <TextComponent />
-          <TextComponent />
-        </LeftMaterialContiner>
-      </div>
-    </LeftPanelWrapper>
+    <div className="LeftPanelWrapper">
+      <Sider />
+      {/* <div className="LeftMaterialContiner">
+        <TextComponent />
+        <TextComponent />
+      </div> */}
+    </div>
   );
 };

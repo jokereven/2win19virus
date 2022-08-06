@@ -25,3 +25,8 @@ html body #root .App {
 .content {
   display: flex;
 }
+/* 去权重 */
+.ant-tabs-left,
+.ant-tabs-tabpane {
+  padding-left: 0 !important;
+}
