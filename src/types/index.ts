@@ -1,11 +1,21 @@
 export enum COMPONENT_TYPE {
+  //add
+  DIV = "div",
+  H1 = "h1",
+  P = "p",
+  BUTTON = "button",
   TEXT = "text",
-  VIDEO = "video",
+  SELECT = "select",
   IMAGE = "image",
+  SPAN = "span",
+  LINK = "link",
+  TEXT_DROPED = "text-droped",
+  H1_DROPPED = "h1-dropped",
+
+  VIDEO = "video",
   AUDIO = "audio",
   CARD = "card",
   FORM = "form",
-  TEXT_DROPED = "text-droped",
 }
 
 export enum RIGHT_PANEL_TYPE {
