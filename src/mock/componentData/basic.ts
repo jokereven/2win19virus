@@ -1,6 +1,6 @@
-import { FieldNode } from "types";
+import { ElementType } from "types";
 
-const fields: FieldNode[] = [
+const fields: ElementType[] = [
   {
     type: "div",
     props: {},

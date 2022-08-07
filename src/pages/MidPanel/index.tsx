@@ -1,17 +1,17 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { FieldNode, RIGHT_PANEL_TYPE, leftType } from "../../types";
+import { ElementType, RIGHT_PANEL_TYPE, leftType } from "../../types";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
 
 type DrawPanelProps = {
-  data: Array<FieldNode>;
+  data: Array<ElementType>;
   setData: Function;
   setRightPanelType: Function;
   setRightRanelElementId: Function;
 };
 
 type DivComponentDropedProps = {
-  item: FieldNode;
+  item: ElementType;
   setRightPanelType: Function;
   setRightRanelElementId: Function;
 };
@@ -56,7 +56,7 @@ export default function MidPanel({
   setData,
 }: DrawPanelProps) {
   const findCurrentElement = (id: string) => {
-    return data.find((item: FieldNode) => item.id === id);
+    return data.find((item: ElementType) => item.id === id);
   };
 
   const changeElementData = (id: string, key: string, newData: any) => {

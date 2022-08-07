@@ -1,5 +1,5 @@
-import { FieldNode } from "types";
-const antdItems: FieldNode[] = [
+import { ElementType } from "types";
+const antdItems: ElementType[] = [
   {
     type: "Button",
     module: "antd",

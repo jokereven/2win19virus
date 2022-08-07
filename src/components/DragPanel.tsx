@@ -1,15 +1,15 @@
 import React, { ReactElement } from "react";
-import { FieldNode } from "types";
+import { ElementType } from "types";
 import DragItem from "./DragItem";
 
 interface Props {
-  data: FieldNode[];
+  data: ElementType[];
 }
 
 export default function DragPanel({ data }: Props): ReactElement {
   return (
     <>
-      {data.map((d: FieldNode) => (
+      {data.map((d: ElementType) => (
         <DragItem key={d.type} data={d} />
       ))}
     </>

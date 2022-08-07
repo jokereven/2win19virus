@@ -1,9 +1,9 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-import { FieldNode } from "types";
+import { ElementType } from "types";
 import "./style.css";
 interface Props {
-  data: FieldNode;
+  data: ElementType;
 }
 
 export default function DragItem({ data }: Props) {

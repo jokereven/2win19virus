@@ -34,7 +34,7 @@ export enum RIGHT_PANEL_TYPE {
 // };
 
 // 定义可拖拽组件的属性
-export interface FieldNode {
+export interface ElementType {
   id?: string;
   type: string;
   module?: string;
