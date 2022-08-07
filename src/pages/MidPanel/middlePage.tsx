@@ -6,9 +6,9 @@ import "./style.css";
 import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
-import basic from "../../mock/componentData/basic";
+import allItems from "mock/componentData";
 function MiddlePage(props: any) {
-  const types = basic.map((value) => {
+  const types = allItems.map((value) => {
     return value.type;
   });
 
