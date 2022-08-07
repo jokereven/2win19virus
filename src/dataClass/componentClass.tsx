@@ -1,7 +1,7 @@
 export default class component {
   static count = 0;
   tag: any;
-  parent: component | null = null;
+  parent: component | null;
   key: number;
   style: Object;
   children: Array<component | string>;
@@ -20,6 +20,7 @@ export default class component {
     this.children = children;
     this.blink = blink;
     this.key = component.count;
+    this.parent = null;
     component.count++;
   }
   r(): any {
