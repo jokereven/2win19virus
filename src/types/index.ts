@@ -32,3 +32,10 @@ export type ElementType = {
   type: string;
   [prop: string]: any;
 };
+
+// 定义可拖拽组件的属性
+export interface FieldNode {
+  type: string;
+  module?: string;
+  props: Record<string, any>;
+}

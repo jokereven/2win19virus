@@ -1,7 +1,6 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import "./style.css";
-// import { TextComponentWrapper } from "./style";
 
 export default function DragItem({ data }: { data: any }) {
   const [, drag] = useDrag(() => ({
