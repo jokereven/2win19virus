@@ -29,3 +29,18 @@
 #optList .optItem:not(:last-child) {
   border-right: 1px rgb(0, 0, 0, 0.5) solid;
 }
+
+.choose {
+  outline: 3px rgb(33, 183, 243) dotted;
+  animation: chooseAnimation 0.5s infinite linear alternate;
+}
+
+@keyframes chooseAnimation {
+  from {
+    outline-offset: 0;
+  }
+
+  to {
+    outline-offset: 2px;
+  }
+}

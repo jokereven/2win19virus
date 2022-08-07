@@ -91,13 +91,13 @@ const StateReducer = (
       return newState;
     case stateConstantas.CHOOSEDOM:
       if (newState.targetDOM !== null) {
-        newState.targetDOM.style = {};
+        newState.targetDOM.choose = false;
       }
       newState.targetDOM = chooseDom(newState.stateNode, action.data);
       newState.optLeft = action.data.optLeft;
       newState.optTop = action.data.optTop;
       if (newState.targetDOM instanceof component) {
-        newState.targetDOM.style = { border: "solid 1px black" };
+        newState.targetDOM.choose = true;
       } else {
         newState.targetDOM = newState.stateNode;
       }

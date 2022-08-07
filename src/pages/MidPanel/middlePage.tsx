@@ -38,7 +38,19 @@ function MiddlePage(props: any) {
     if (target && target !== state) {
       return (
         <div style={optStyle} id="optList">
-          <div className="optItem">删除</div>
+          <div
+            className="optItem"
+            onClick={() => {
+              store.dispatch({
+                type: stateConstantas.DELETEDOM,
+                data: {
+                  key: target.key,
+                },
+              });
+            }}
+          >
+            删除
+          </div>
           <div className="optItem">...</div>
         </div>
       );

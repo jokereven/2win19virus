@@ -24,6 +24,7 @@ export default class component {
   children: Array<component | string>;
   event: Object;
   blink: boolean;
+  choose: boolean = false;
   editEvent: Object = {
     onClick: (e: any) => {
       var chooseDOM: HTMLElement = e.target;
@@ -64,6 +65,7 @@ export default class component {
           key={this.key}
           data-key={this.key}
           style={this.style}
+          className={this.choose ? "choose" : ""}
         >
           {this.children.map((item) => {
             if (item instanceof component) return item.r();
@@ -73,7 +75,14 @@ export default class component {
       );
     } else {
       return (
-        <this.tag {...this.editEvent} {...this.event} style={this.style} />
+        <this.tag
+          {...this.editEvent}
+          {...this.event}
+          key={this.key}
+          data-key={this.key}
+          style={this.style}
+          className={this.choose ? "choose" : ""}
+        />
       );
     }
   }
