@@ -1,6 +1,5 @@
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-
 function getElementTop(el: any): number {
   if (el.offsetParent && el.offsetParent.id !== "midContainer") {
     return getElementTop(el.offsetParent) + el.offsetTop;

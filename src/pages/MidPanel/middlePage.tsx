@@ -1,7 +1,7 @@
 import component from "dataClass/componentClass";
 import { connect } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { leftType } from "types";
+import basicType from "../../mock/componentData/basic";
 import "./style.css";
 import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
@@ -26,14 +26,26 @@ function MiddlePage(props: any) {
     // accept: Object.values(leftType), // drop接受的type
     accept: types,
     drop: (_, monitor) => {
-      store.dispatch({
-        type: stateConstantas.ADDDOM,
-        data: {
-          place: state.key,
-          method: stateConstantas.APPENDAFTER,
-          newDOM: new component(monitor.getItemType(), {}, {}, ["测试"]),
-        },
+      console.log(monitor.getItemType());
+      const dropObj = basic.find((value) => {
+        return value.type === monitor.getItemType();
       });
+      if (dropObj !== undefined) {
+        store.dispatch({
+          type: stateConstantas.ADDDOM,
+          data: {
+            place: state.key,
+            method: stateConstantas.APPENDAFTER,
+            newDOM: new component(
+              monitor.getItemType(),
+              {},
+              {},
+              dropObj.props.children || [],
+              dropObj.blink || false
+            ),
+          },
+        });
+      }
     },
   }));
   function getOptList() {
