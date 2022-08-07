@@ -1,0 +1,31 @@
+#midContainer {
+  position: relative;
+}
+
+#optList {
+  display: flex;
+  position: absolute;
+  /* visibility: hidden; */
+  border: 1px rgb(0, 0, 0, 0.5) solid;
+  border-radius: 2px;
+}
+
+#optList .optItem {
+  background-color: whitesmoke;
+  padding: 3px;
+  cursor: pointer;
+}
+
+#optList .optItem:hover {
+  background-color: rgba(66, 133, 137, 0.532);
+  color: aliceblue;
+}
+
+#optList .optItem:active {
+  background-color: rgba(105, 207, 212, 0.532);
+  color: aliceblue;
+}
+
+#optList .optItem:not(:last-child) {
+  border-right: 1px rgb(0, 0, 0, 0.5) solid;
+}
