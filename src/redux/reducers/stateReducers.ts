@@ -67,9 +67,13 @@ const StateReducer = (
   state: {
     stateNode: component;
     targetDOM: component | null;
+    optTop: number;
+    optLeft: number;
   } = {
     stateNode: new component("div", {}, {}, ["测试"]),
     targetDOM: null,
+    optLeft: 0,
+    optTop: 0,
   },
   action: {
     type: string;
@@ -90,12 +94,12 @@ const StateReducer = (
         newState.targetDOM.style = {};
       }
       newState.targetDOM = chooseDom(newState.stateNode, action.data);
-
+      newState.optLeft = action.data.optLeft;
+      newState.optTop = action.data.optTop;
       if (newState.targetDOM instanceof component) {
         newState.targetDOM.style = { border: "solid 1px black" };
       } else {
         newState.targetDOM = newState.stateNode;
-        newState.targetDOM.style = { border: "solid 1px black" };
       }
       return newState;
     default:

@@ -11,5 +11,5 @@ export const MidItemsContainer = styled.div`
   position: relative;
   height: calc(100% - 75px);
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
 `;
