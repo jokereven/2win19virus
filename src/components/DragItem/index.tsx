@@ -1,9 +1,12 @@
 import React from "react";
 import { useDrag } from "react-dnd";
+import { ElementType } from "types";
 import "./style.css";
-// import { TextComponentWrapper } from "./style";
+interface Props {
+  data: ElementType;
+}
 
-export default function DragItem({ data }: { data: any }) {
+export default function DragItem({ data }: Props) {
   const [, drag] = useDrag(() => ({
     type: data.type,
     collect: (monitor) => ({

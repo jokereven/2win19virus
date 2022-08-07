@@ -1,13 +1,14 @@
 import component from "dataClass/componentClass";
 import { connect } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
+import { leftType } from "types";
 import "./style.css";
 import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
-import basic from "../../mock/componentData/basic.json";
+import basic from "../../mock/componentData/basic";
 function MiddlePage(props: any) {
-  const types = basic.data.map((value) => {
+  const types = basic.map((value) => {
     return value.type;
   });
 
@@ -22,7 +23,8 @@ function MiddlePage(props: any) {
           left: props.state.optLeft,
         };
   const [, drop] = useDrop(() => ({
-    accept: types, // drop接受的type
+    // accept: Object.values(leftType), // drop接受的type
+    accept: types,
     drop: (_, monitor) => {
       store.dispatch({
         type: stateConstantas.ADDDOM,
