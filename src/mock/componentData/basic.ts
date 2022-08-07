@@ -1,6 +1,6 @@
 import { ElementType } from "types";
 
-const fields: ElementType[] = [
+const basic: ElementType[] = [
   {
     type: "div",
     props: {},
@@ -65,4 +65,4 @@ const fields: ElementType[] = [
   },
 ];
 
-export default fields;
+export default basic;
