@@ -1,58 +1,58 @@
 {
-    "data":[
-        {
-            "type":"div",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"h1",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"p",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"button",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"text",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"select",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"img",
-            "props":{
-                
-            }
-        },
-        {
-            "type":"span",
-            "props":{
-               
-            }
-        },
-        {
-            "type":"link",
-            "props":{
-                
-            }
-        }
-    ]
+  "data": [
+    {
+      "type": "div",
+      "props": {
+        "tag": "div"
+      }
+    },
+    {
+      "type": "h1",
+      "props": {
+        "tag": "h1"
+      }
+    },
+    {
+      "type": "p",
+      "props": {
+        "tag": "p"
+      }
+    },
+    {
+      "type": "button",
+      "props": {
+        "tag": "button"
+      }
+    },
+    {
+      "type": "text",
+      "props": {
+        "tag": "span"
+      }
+    },
+    {
+      "type": "select",
+      "props": {
+        "tag": "select"
+      }
+    },
+    {
+      "type": "img",
+      "props": {
+        "tag": "img"
+      }
+    },
+    {
+      "type": "span",
+      "props": {
+        "tag": "span"
+      }
+    },
+    {
+      "type": "link",
+      "props": {
+        "tag": "a"
+      }
+    }
+  ]
 }
