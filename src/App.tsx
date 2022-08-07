@@ -1,3 +1,5 @@
+import { Header } from "pages/Header";
+import MiddlePage from "pages/MidPanel/middlePage";
 import React, { useState } from "react";
 // React dnd
 import { DndProvider } from "react-dnd";
@@ -20,16 +22,17 @@ const App: React.FC = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
-        <div className="header">2win19virus</div>
+        <Header></Header>
         <div className="content">
           <LeftPanel />
-          <MidPanel
+          {/* <MidPanel
             key={`${drawPanelData.length}-${Math.random()}`}
             data={drawPanelData}
             setRightPanelType={setRightPanelType}
             setRightRanelElementId={setRightRanelElementId}
             setData={setDrawPanelData}
-          />
+          /> */}
+          <MiddlePage></MiddlePage>
           <RightPanel
             type={rightPanelType}
             data={drawPanelData}
