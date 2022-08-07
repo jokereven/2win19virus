@@ -8,10 +8,6 @@ export const LeftPanel: React.FC = () => {
   return (
     <div className="LeftPanelWrapper">
       <Sider />
-      {/* <div className="LeftMaterialContiner">
-        <TextComponent />
-        <TextComponent />
-      </div> */}
     </div>
   );
 };
