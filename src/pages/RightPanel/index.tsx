@@ -1,9 +1,9 @@
-import { ElementType, RIGHT_PANEL_TYPE } from "../../types";
+import { FieldNode, RIGHT_PANEL_TYPE } from "../../types";
 import "./style.css";
 
 type RightPanelProps = {
   type: RIGHT_PANEL_TYPE;
-  data: Array<ElementType>;
+  data: Array<FieldNode>;
   elementId: string;
   setDrawPanelData: Function;
 };
@@ -15,7 +15,7 @@ export default function RightPanel({
   setDrawPanelData,
 }: RightPanelProps) {
   const findCurrentElement = (id: string) => {
-    return data.find((item: ElementType) => item.id === id);
+    return data.find((item: FieldNode) => item.id === id);
   };
 
   const changeElementData = (id: string, key: string, newData: any) => {

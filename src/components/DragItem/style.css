@@ -4,8 +4,8 @@
   line-height: 3.5rem;
   text-align: center;
   border: 2px solid #d6dbdcc6;
-  border-radius: 2rem;
-  cursor: pointer;
+  border-radius: 1rem;
+  cursor: move;
   margin: 1.5rem auto;
   background-color: #b3b3b324;
   /* transition: border 0.5s linear,box-shadow 0.5s linear;
@@ -13,6 +13,6 @@
   /* -webkit-transition:border 1s linear,box-shadow 1s linear; */
 }
 .componentWrapper:hover {
-  box-shadow: 0px 0px 7px 3px #e6f7ff;
+  /* box-shadow: 0px 0px 7px 3px #e6f7ff; */
   border: 2px solid #1890ff4d;
 }

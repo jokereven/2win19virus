@@ -1,17 +1,17 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { COMPONENT_TYPE, ElementType, RIGHT_PANEL_TYPE } from "../../types";
+import { FieldNode, RIGHT_PANEL_TYPE, leftType } from "../../types";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
 
 type DrawPanelProps = {
-  data: Array<ElementType>;
+  data: Array<FieldNode>;
   setData: Function;
   setRightPanelType: Function;
   setRightRanelElementId: Function;
 };
 
-type TextComponentDropedProps = {
-  item: ElementType;
+type DivComponentDropedProps = {
+  item: FieldNode;
   setRightPanelType: Function;
   setRightRanelElementId: Function;
 };
@@ -19,9 +19,9 @@ function TextComponentDroped({
   item,
   setRightPanelType,
   setRightRanelElementId,
-}: TextComponentDropedProps) {
+}: DivComponentDropedProps) {
   const [, drag] = useDrag(() => ({
-    type: COMPONENT_TYPE.TEXT_DROPED,
+    type: leftType.DIV_DROPPED,
     item: { id: item.id },
   }));
   return (
@@ -56,7 +56,7 @@ export default function MidPanel({
   setData,
 }: DrawPanelProps) {
   const findCurrentElement = (id: string) => {
-    return data.find((item: ElementType) => item.id === id);
+    return data.find((item: FieldNode) => item.id === id);
   };
 
   const changeElementData = (id: string, key: string, newData: any) => {
@@ -70,7 +70,8 @@ export default function MidPanel({
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop(() => ({
-    accept: [COMPONENT_TYPE.TEXT, COMPONENT_TYPE.TEXT_DROPED], // drop接受的type
+    // accept: [COMPONENT_TYPE.TEXT, COMPONENT_TYPE.TEXT_DROPED], // drop接受的type
+    accept: Object.values(leftType),
     drop: (_, monitor) => {
       const { x, y } = monitor.getSourceClientOffset()!; // 相对屏幕左上角的位置
       // 计算相对容器左上角的位置
@@ -79,7 +80,7 @@ export default function MidPanel({
         currentY = y - (50 - window.scrollY);
       }
       switch (monitor.getItemType()) {
-        case COMPONENT_TYPE.TEXT:
+        case leftType.DIV:
           setData([
             ...data,
             {
@@ -95,7 +96,7 @@ export default function MidPanel({
             },
           ]);
           return;
-        case COMPONENT_TYPE.TEXT_DROPED:
+        case leftType.DIV_DROPPED:
           console.log(monitor.getItem());
           changeElementData(
             (monitor.getItem() as { id: string }).id,
