@@ -4,7 +4,7 @@ const antdItems: ElementType[] = [
     type: "Button",
     module: "antd",
     props: {
-      children: "Button",
+      children: ["Button"],
       type: "ghost",
     },
   },
@@ -12,11 +12,13 @@ const antdItems: ElementType[] = [
     type: "Input",
     module: "antd",
     props: {},
+    blink: true,
   },
   {
     type: "InputNumber",
     module: "antd",
     props: {},
+    blink: true,
   },
   {
     type: "Radio",

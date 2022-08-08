@@ -1,5 +1,6 @@
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
+import * as antd from "antd";
 function getElementTop(el: any): number {
   if (el.offsetParent && el.offsetParent.id !== "midContainer") {
     return getElementTop(el.offsetParent) + el.offsetTop;
@@ -47,6 +48,9 @@ export default class component {
     blink: boolean = false,
     other: any = {}
   ) {
+    if (typeof tag === "string" && antd[tag as keyof typeof antd]) {
+      tag = antd[tag as keyof typeof antd];
+    }
     this.tag = tag;
     this.style = style;
     this.event = event;
