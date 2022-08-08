@@ -56,8 +56,15 @@ export default class component {
     blink: boolean = false,
     other: any = {}
   ) {
-    if (typeof tag === "string" && antd[tag as keyof typeof antd]) {
-      tag = antd[tag as keyof typeof antd];
+    if (typeof tag === "string") {
+      let eleSource: any = antd;
+      let proName = tag.split(".");
+      for (let i = 0; i < proName.length; i++) {
+        if (eleSource[proName[i] as keyof typeof eleSource]) {
+          tag = eleSource[proName[i] as keyof typeof eleSource];
+          eleSource = eleSource[proName[i] as keyof typeof eleSource];
+        }
+      }
     }
     this.tag = tag;
     this.style = style;
