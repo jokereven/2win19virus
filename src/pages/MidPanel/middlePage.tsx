@@ -1,16 +1,26 @@
 import component from "dataClass/componentClass";
 import { connect } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { leftType } from "types";
+import basicType from "../../mock/componentData/basic";
+import { Button } from "antd";
 import "./style.css";
 import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
-import allItems from "mock/componentData";
+import basic from "../../mock/componentData/basic";
+import antdItem from "../../mock/componentData/antdItem";
+import { ElementType } from "../../types/index";
 function MiddlePage(props: any) {
-  const types = allItems.map((value) => {
+  const basicTypes = basic.map((value) => {
     return value.type;
   });
+
+  const antdTypes = antdItem.map((item) => {
+    return item.type;
+  });
+
+  const types = [...antdTypes, ...basicTypes];
+  const comps = [...basic, ...antdItem];
 
   var state: component = props.state.stateNode;
   var target: component = props.state.targetDOM;
@@ -26,21 +36,69 @@ function MiddlePage(props: any) {
     // accept: Object.values(leftType), // drop接受的type
     accept: types,
     drop: (_, monitor) => {
-      store.dispatch({
-        type: stateConstantas.ADDDOM,
-        data: {
-          place: state.key,
-          method: stateConstantas.APPENDAFTER,
-          newDOM: new component(monitor.getItemType(), {}, {}, ["测试"]),
-        },
+      function addComponent(
+        parent: component,
+        compInfo: ElementType
+      ): component {
+        var newComp = new component(
+          compInfo.type,
+          compInfo.props?.style || {},
+          compInfo.props?.event || {},
+          [],
+          compInfo.blink || false,
+          compInfo.props?.other || {}
+        );
+        newComp.parent = parent;
+        var children = compInfo.props?.children || undefined;
+        if (children && children instanceof Array) {
+          children.forEach((item: ElementType | string) => {
+            console.log(item);
+            if (typeof item === "string") {
+              newComp.children.push(item);
+            } else {
+              var newDOM = addComponent(newComp, item);
+              newComp.children.push(newDOM);
+            }
+          });
+        }
+        console.log(newComp);
+        return newComp;
+      }
+      const dropObj = comps.find((value) => {
+        return value.type === monitor.getItemType();
       });
+      console.log(dropObj);
+
+      if (dropObj !== undefined) {
+        var newDOM = addComponent(state, dropObj);
+        store.dispatch({
+          type: stateConstantas.ADDDOM,
+          data: {
+            place: state.key,
+            method: stateConstantas.APPENDAFTER,
+            newDOM: newDOM,
+          },
+        });
+      }
     },
   }));
   function getOptList() {
     if (target && target !== state) {
       return (
         <div style={optStyle} id="optList">
-          <div className="optItem">删除</div>
+          <div
+            className="optItem"
+            onClick={() => {
+              store.dispatch({
+                type: stateConstantas.DELETEDOM,
+                data: {
+                  key: target.key,
+                },
+              });
+            }}
+          >
+            删除
+          </div>
           <div className="optItem">...</div>
         </div>
       );

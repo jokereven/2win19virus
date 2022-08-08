@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 // App scrollbar css
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 import "./App.css";
 // mock
 import drawData from "./mock/drawData.json";
@@ -21,26 +23,28 @@ const App: React.FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="App">
-        <Header></Header>
-        <div className="content">
-          <LeftPanel />
-          {/* <MidPanel
+      <Provider store={store}>
+        <div className="App">
+          <Header></Header>
+          <div className="content">
+            <LeftPanel />
+            {/* <MidPanel
             key={`${drawPanelData.length}-${Math.random()}`}
             data={drawPanelData}
             setRightPanelType={setRightPanelType}
             setRightRanelElementId={setRightRanelElementId}
             setData={setDrawPanelData}
           /> */}
-          <MiddlePage></MiddlePage>
-          <RightPanel
-            type={rightPanelType}
-            data={drawPanelData}
-            elementId={rightRanelElementId}
-            setDrawPanelData={setDrawPanelData}
-          />
+            <MiddlePage></MiddlePage>
+            <RightPanel
+              type={rightPanelType}
+              data={drawPanelData}
+              elementId={rightRanelElementId}
+              setDrawPanelData={setDrawPanelData}
+            />
+          </div>
         </div>
-      </div>
+      </Provider>
     </DndProvider>
   );
 };

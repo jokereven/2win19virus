@@ -22,7 +22,7 @@ function addDom(
   data: {
     place: number;
     method: string;
-    newDOM: component;
+    newDOM: component | string;
   }
 ) {
   var { place, method, newDOM } = data;
@@ -33,7 +33,7 @@ function addDom(
   } else {
     optDOM?.children.unshift(newDOM);
   }
-  newDOM.parent = optDOM;
+  if (newDOM instanceof component) newDOM.parent = optDOM;
 }
 
 function deleteDom(
@@ -52,6 +52,16 @@ function deleteDom(
       return true;
     });
   }
+}
+
+function clearDom(
+  stateNode: component,
+  data: {
+    arr: number;
+  }
+) {
+  console.log(stateNode);
+  return search(stateNode, data.arr);
 }
 
 function chooseDom(
@@ -91,13 +101,13 @@ const StateReducer = (
       return newState;
     case stateConstantas.CHOOSEDOM:
       if (newState.targetDOM !== null) {
-        newState.targetDOM.style = {};
+        newState.targetDOM.choose = false;
       }
       newState.targetDOM = chooseDom(newState.stateNode, action.data);
       newState.optLeft = action.data.optLeft;
       newState.optTop = action.data.optTop;
       if (newState.targetDOM instanceof component) {
-        newState.targetDOM.style = { border: "solid 1px black" };
+        newState.targetDOM.choose = true;
       } else {
         newState.targetDOM = newState.stateNode;
       }

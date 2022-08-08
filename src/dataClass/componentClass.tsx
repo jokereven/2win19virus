@@ -1,6 +1,6 @@
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-
+import * as antd from "antd";
 function getElementTop(el: any): number {
   if (el.offsetParent && el.offsetParent.id !== "midContainer") {
     return getElementTop(el.offsetParent) + el.offsetTop;
@@ -24,6 +24,8 @@ export default class component {
   children: Array<component | string>;
   event: Object;
   blink: boolean;
+  other: any;
+  choose: boolean = false;
   editEvent: Object = {
     onClick: (e: any) => {
       var chooseDOM: HTMLElement = e.target;
@@ -35,7 +37,6 @@ export default class component {
           optTop: getElementTop(chooseDOM),
         },
       });
-
       e.stopPropagation();
     },
   };
@@ -44,8 +45,12 @@ export default class component {
     style: Object = {},
     event: Object = {},
     children: Array<component | string> = [],
-    blink: boolean = false
+    blink: boolean = false,
+    other: any = {}
   ) {
+    if (typeof tag === "string" && antd[tag as keyof typeof antd]) {
+      tag = antd[tag as keyof typeof antd];
+    }
     this.tag = tag;
     this.style = style;
     this.event = event;
@@ -53,6 +58,7 @@ export default class component {
     this.blink = blink;
     this.key = component.count;
     this.parent = null;
+    this.other = other;
     component.count++;
   }
   r(): any {
@@ -64,6 +70,8 @@ export default class component {
           key={this.key}
           data-key={this.key}
           style={this.style}
+          className={this.choose ? "choose" : ""}
+          {...this.other}
         >
           {this.children.map((item) => {
             if (item instanceof component) return item.r();
@@ -73,7 +81,15 @@ export default class component {
       );
     } else {
       return (
-        <this.tag {...this.editEvent} {...this.event} style={this.style} />
+        <this.tag
+          {...this.editEvent}
+          {...this.event}
+          key={this.key}
+          data-key={this.key}
+          style={this.style}
+          {...this.other}
+          className={this.choose ? "choose" : ""}
+        />
       );
     }
   }
