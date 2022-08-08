@@ -3,7 +3,9 @@ import { ElementType } from "types";
 const basic: ElementType[] = [
   {
     type: "div",
-    props: {},
+    props: {
+      children: ["div"],
+    },
   },
   {
     type: "h1",

@@ -26,7 +26,6 @@ function addDom(
   }
 ) {
   var { place, method, newDOM } = data;
-
   var optDOM = search(stateNode, place);
   if (method === stateConstantas.APPENDAFTER) {
     optDOM?.children.push(newDOM);
@@ -80,7 +79,7 @@ const StateReducer = (
     optTop: number;
     optLeft: number;
   } = {
-    stateNode: new component("div", {}, {}, ["测试"]),
+    stateNode: new component("div", {}, {}, []),
     targetDOM: null,
     optLeft: 0,
     optTop: 0,
@@ -94,6 +93,7 @@ const StateReducer = (
   switch (action.type) {
     // case "ADD":
     case stateConstantas.ADDDOM:
+      action.data.place = state.targetDOM?.key || state.stateNode.key;
       addDom(newState.stateNode, action.data);
       return newState;
     case stateConstantas.DELETEDOM:

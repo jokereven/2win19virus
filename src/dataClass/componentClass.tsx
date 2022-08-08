@@ -32,7 +32,6 @@ export default class component {
       var chooseDOM: HTMLElement | null = e.target;
       while (chooseDOM != null) {
         var key = chooseDOM.dataset.key;
-        console.log(key);
         if (key !== undefined) {
           store.dispatch({
             type: stateConstantas.CHOOSEDOM,
