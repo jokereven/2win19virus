@@ -61,7 +61,6 @@ function MiddlePage(props: any) {
             }
           });
         }
-        console.log(newComp);
         return newComp;
       }
       const dropObj = comps.find((value) => {
@@ -83,6 +82,8 @@ function MiddlePage(props: any) {
     },
   }));
   function getOptList() {
+    console.log(target);
+
     if (target && target !== state) {
       return (
         <div style={optStyle} id="optList">
