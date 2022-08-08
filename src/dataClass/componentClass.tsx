@@ -35,7 +35,6 @@ export default class component {
           optTop: getElementTop(chooseDOM),
         },
       });
-
       e.stopPropagation();
     },
   };
