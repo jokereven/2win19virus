@@ -7,6 +7,7 @@ import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
 import basic from "../../mock/componentData/basic";
+import { ElementType } from "../../types/index";
 function MiddlePage(props: any) {
   const types = basic.map((value) => {
     return value.type;
@@ -26,23 +27,44 @@ function MiddlePage(props: any) {
     // accept: Object.values(leftType), // drop接受的type
     accept: types,
     drop: (_, monitor) => {
-      console.log(monitor.getItemType());
+      function addComponent(
+        parent: component,
+        compInfo: ElementType
+      ): component {
+        var newComp = new component(
+          compInfo.type,
+          compInfo.props?.style || {},
+          compInfo.props?.event || {},
+          [],
+          compInfo.blink || false
+        );
+        newComp.parent = parent;
+        var children = compInfo.props?.children || undefined;
+        if (children && children instanceof Array) {
+          children.forEach((item: ElementType | string) => {
+            console.log(item);
+            if (typeof item === "string") {
+              newComp.children.push(item);
+            } else {
+              var newDOM = addComponent(newComp, item);
+              newComp.children.push(newDOM);
+            }
+          });
+        }
+        console.log(newComp);
+        return newComp;
+      }
       const dropObj = basic.find((value) => {
         return value.type === monitor.getItemType();
       });
       if (dropObj !== undefined) {
+        var newDOM = addComponent(state, dropObj);
         store.dispatch({
           type: stateConstantas.ADDDOM,
           data: {
             place: state.key,
             method: stateConstantas.APPENDAFTER,
-            newDOM: new component(
-              monitor.getItemType(),
-              {},
-              {},
-              dropObj.props.children || [],
-              dropObj.blink || false
-            ),
+            newDOM: newDOM,
           },
         });
       }

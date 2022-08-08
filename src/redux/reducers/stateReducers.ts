@@ -22,7 +22,7 @@ function addDom(
   data: {
     place: number;
     method: string;
-    newDOM: component;
+    newDOM: component | string;
   }
 ) {
   var { place, method, newDOM } = data;
@@ -33,7 +33,7 @@ function addDom(
   } else {
     optDOM?.children.unshift(newDOM);
   }
-  newDOM.parent = optDOM;
+  if (newDOM instanceof component) newDOM.parent = optDOM;
 }
 
 function deleteDom(

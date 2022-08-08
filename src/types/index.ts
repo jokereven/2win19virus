@@ -38,6 +38,7 @@ export interface ElementType {
   id?: string;
   type: string;
   module?: string;
+  blink?: boolean;
   [prop: string]: any;
 }
 

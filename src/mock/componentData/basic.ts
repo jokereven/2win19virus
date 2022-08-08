@@ -36,8 +36,20 @@ const basic: ElementType[] = [
     type: "select",
     props: {
       children: [
-        { value: "man", label: "man" },
-        { value: "woman", label: "woman" },
+        {
+          type: "option",
+          props: {
+            value: "man",
+            children: ["man"],
+          },
+        },
+        {
+          type: "option",
+          props: {
+            value: "woman",
+            children: ["woman"],
+          },
+        },
       ],
       placeholder: "pleaceholder",
     },
