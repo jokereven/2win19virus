@@ -12,7 +12,7 @@ export const Header: React.FC = (props: any) => {
     // delItem.pop();
     // [...state.StateReducer.stateNode.children] = delItem;
     var arr = state.StateReducer.stateNode.children;
-    for (var i = 1; i < arr.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
       var val: any = arr[i];
       for (var key in val) {
         if (typeof val[key] == "number") {

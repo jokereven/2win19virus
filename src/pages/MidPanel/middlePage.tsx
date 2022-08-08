@@ -29,7 +29,7 @@ function MiddlePage(props: any) {
       ? {}
       : {
           height: "30px",
-          top: props.state.optTop - 30,
+          top: props.state.optTop - (props.state.optTop <= 0 ? 0 : 30),
           left: props.state.optLeft,
         };
   const [, drop] = useDrop(() => ({
@@ -49,10 +49,10 @@ function MiddlePage(props: any) {
           compInfo.props?.other || {}
         );
         newComp.parent = parent;
+
         var children = compInfo.props?.children || undefined;
         if (children && children instanceof Array) {
           children.forEach((item: ElementType | string) => {
-            console.log(item);
             if (typeof item === "string") {
               newComp.children.push(item);
             } else {
@@ -66,14 +66,13 @@ function MiddlePage(props: any) {
       const dropObj = comps.find((value) => {
         return value.type === monitor.getItemType();
       });
-      console.log(dropObj);
 
       if (dropObj !== undefined) {
-        var newDOM = addComponent(state, dropObj);
+        var newDOM = addComponent(target, dropObj);
         store.dispatch({
           type: stateConstantas.ADDDOM,
           data: {
-            place: state.key,
+            place: (target || state).key,
             method: stateConstantas.APPENDAFTER,
             newDOM: newDOM,
           },
@@ -82,8 +81,6 @@ function MiddlePage(props: any) {
     },
   }));
   function getOptList() {
-    console.log(target);
-
     if (target && target !== state) {
       return (
         <div style={optStyle} id="optList">
@@ -105,6 +102,7 @@ function MiddlePage(props: any) {
       );
     }
   }
+
   return (
     <MidPanelWrapper>
       <MidItemsContainer
