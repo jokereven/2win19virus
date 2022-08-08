@@ -2,16 +2,25 @@ import component from "dataClass/componentClass";
 import { connect } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import basicType from "../../mock/componentData/basic";
+import { Button } from "antd";
 import "./style.css";
 import { store } from "redux/store";
 import { stateConstantas } from "redux/constantas";
 import { MidItemsContainer, MidPanelWrapper } from "./style";
 import basic from "../../mock/componentData/basic";
+import antdItem from "../../mock/componentData/antdItem";
 import { ElementType } from "../../types/index";
 function MiddlePage(props: any) {
-  const types = basic.map((value) => {
+  const basicTypes = basic.map((value) => {
     return value.type;
   });
+
+  const antdTypes = antdItem.map((item) => {
+    return item.type;
+  });
+
+  const types = [...antdTypes, ...basicTypes];
+  const comps = [...basic, ...antdItem];
 
   var state: component = props.state.stateNode;
   var target: component = props.state.targetDOM;
@@ -55,9 +64,11 @@ function MiddlePage(props: any) {
         console.log(newComp);
         return newComp;
       }
-      const dropObj = basic.find((value) => {
+      const dropObj = comps.find((value) => {
         return value.type === monitor.getItemType();
       });
+      console.log(dropObj);
+
       if (dropObj !== undefined) {
         var newDOM = addComponent(state, dropObj);
         store.dispatch({
