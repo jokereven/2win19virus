@@ -21,7 +21,7 @@ export default function RightPanel({
   const changeElementData = (id: string, key: string, newData: any) => {
     const element = findCurrentElement(id);
     if (element) {
-      element[key] = newData;
+      (element[key as keyof typeof element] as any) = newData;
       setDrawPanelData([...data]);
     }
   };
@@ -55,7 +55,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>color:</div>
               <input
-                defaultValue={elementData.color}
+                defaultValue={elementData.props.style.color}
                 ref={(element) => {
                   inputDomObject[1] = element!;
                 }}
@@ -65,7 +65,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>size:</div>
               <input
-                defaultValue={elementData.size}
+                defaultValue={elementData.props.style.size}
                 ref={(element) => {
                   inputDomObject[2] = element!;
                 }}
@@ -75,7 +75,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>width:</div>
               <input
-                defaultValue={elementData.width}
+                defaultValue={elementData.props.style.width}
                 ref={(element) => {
                   inputDomObject[3] = element!;
                 }}
@@ -85,7 +85,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>height:</div>
               <input
-                defaultValue={elementData.height}
+                defaultValue={elementData.props.style.height}
                 ref={(element) => {
                   inputDomObject[4] = element!;
                 }}
@@ -95,7 +95,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>top:</div>
               <input
-                defaultValue={elementData.top}
+                defaultValue={elementData.props.style.top}
                 ref={(element) => {
                   inputDomObject[5] = element!;
                 }}
@@ -105,7 +105,7 @@ export default function RightPanel({
             <div className="flex-row-space-between text-config-item">
               <div>left:</div>
               <input
-                defaultValue={elementData.left}
+                defaultValue={elementData.props.style.left}
                 ref={(element) => {
                   inputDomObject[6] = element!;
                 }}

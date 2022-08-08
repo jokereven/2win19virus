@@ -1,6 +1,6 @@
 import { ElementType } from "types";
 
-const basic: ElementType[] = [
+const basicItems: ElementType[] = [
   {
     type: "div",
     props: {
@@ -85,4 +85,4 @@ const basic: ElementType[] = [
   },
 ];
 
-export default basic;
+export default basicItems;
