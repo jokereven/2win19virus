@@ -3,6 +3,7 @@
 }
 
 #optList {
+  z-index: 999;
   display: flex;
   position: absolute;
   /* visibility: hidden; */

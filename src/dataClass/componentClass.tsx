@@ -28,16 +28,25 @@ export default class component {
   choose: boolean = false;
   editEvent: Object = {
     onClick: (e: any) => {
-      var chooseDOM: HTMLElement = e.target;
-      store.dispatch({
-        type: stateConstantas.CHOOSEDOM,
-        data: {
-          key: this.key,
-          optLeft: getElementLeft(chooseDOM),
-          optTop: getElementTop(chooseDOM),
-        },
-      });
       e.stopPropagation();
+      var chooseDOM: HTMLElement | null = e.target;
+      while (chooseDOM != null) {
+        var key = chooseDOM.dataset.key;
+        console.log(key);
+        if (key !== undefined) {
+          store.dispatch({
+            type: stateConstantas.CHOOSEDOM,
+            data: {
+              key: parseInt(key),
+              optLeft: getElementLeft(chooseDOM),
+              optTop: getElementTop(chooseDOM),
+            },
+          });
+          return;
+        }
+        chooseDOM = chooseDOM.parentElement;
+        if (chooseDOM === null) return;
+      }
     },
   };
   constructor(
