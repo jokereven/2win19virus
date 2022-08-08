@@ -36,7 +36,8 @@ function MiddlePage(props: any) {
           compInfo.props?.style || {},
           compInfo.props?.event || {},
           [],
-          compInfo.blink || false
+          compInfo.blink || false,
+          compInfo.props?.other || {}
         );
         newComp.parent = parent;
         var children = compInfo.props?.children || undefined;
