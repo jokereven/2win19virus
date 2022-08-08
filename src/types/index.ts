@@ -39,7 +39,10 @@ export interface ElementType {
   type: string;
   module?: string;
   blink?: boolean;
-  [prop: string]: any;
+  data?: string;
+  key?: number;
+  // [prop: string]: any;
+  props: Record<string, any>;
 }
 
 // 定义可拖拽的type

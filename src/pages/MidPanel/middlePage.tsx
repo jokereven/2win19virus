@@ -42,11 +42,11 @@ function MiddlePage(props: any) {
       ): component {
         var newComp = new component(
           compInfo.type,
-          compInfo.props?.style || {},
-          compInfo.props?.event || {},
+          compInfo.props.style || {},
+          compInfo.props.event || {},
           [],
           compInfo.blink || false,
-          compInfo.props?.other || {}
+          compInfo.props.other || {}
         );
         newComp.parent = parent;
         var children = compInfo.props?.children || undefined;

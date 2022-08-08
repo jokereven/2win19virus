@@ -32,19 +32,19 @@ function TextComponentDroped({
         setRightRanelElementId(item.id);
       }}
       style={{
-        color: item.color,
-        fontSize: item.size,
-        width: item.width,
-        height: item.height,
-        left: item.left,
-        top: item.top,
+        color: item.props.style.color,
+        fontSize: item.props.style.size,
+        width: item.props.style.width,
+        height: item.props.style.height,
+        left: item.props.style.left,
+        top: item.props.style.top,
         position: "absolute",
         backgroundColor: "#fdeff2",
         overflow: "hidden",
       }}
       ref={drag}
     >
-      {item.data}
+      {item.props.data}
     </div>
   );
 }
@@ -60,9 +60,11 @@ export default function MidPanel({
   };
 
   const changeElementData = (id: string, key: string, newData: any) => {
+    console.log("newData", newData);
+
     const element = findCurrentElement(id);
     if (element) {
-      element[key] = newData;
+      (element[key as keyof typeof element] as any) = newData;
       setData([...data]);
     }
   };
