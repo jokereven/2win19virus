@@ -28,8 +28,10 @@ const basic: ElementType[] = [
     type: "input",
     blink: true,
     props: {
-      type: "text",
-      placeholder: "pleaceholder",
+      other: {
+        type: "text",
+        placeholder: "pleaceholder",
+      },
     },
   },
   {
@@ -58,9 +60,11 @@ const basic: ElementType[] = [
     type: "img",
     blink: true,
     props: {
-      width: "100",
-      height: "100",
-      src: "https://www.baidu.com/img/PCpad_012830ebaa7e4379ce9a9ed1b71f7507.png",
+      other: {
+        width: "100",
+        height: "100",
+        src: "https://www.baidu.com/img/PCpad_012830ebaa7e4379ce9a9ed1b71f7507.png",
+      },
     },
   },
   {

@@ -23,6 +23,7 @@ export default class component {
   children: Array<component | string>;
   event: Object;
   blink: boolean;
+  other: any;
   choose: boolean = false;
   editEvent: Object = {
     onClick: (e: any) => {
@@ -43,7 +44,8 @@ export default class component {
     style: Object = {},
     event: Object = {},
     children: Array<component | string> = [],
-    blink: boolean = false
+    blink: boolean = false,
+    other: any = {}
   ) {
     this.tag = tag;
     this.style = style;
@@ -52,6 +54,7 @@ export default class component {
     this.blink = blink;
     this.key = component.count;
     this.parent = null;
+    this.other = other;
     component.count++;
   }
   r(): any {
@@ -64,6 +67,7 @@ export default class component {
           data-key={this.key}
           style={this.style}
           className={this.choose ? "choose" : ""}
+          {...this.other}
         >
           {this.children.map((item) => {
             if (item instanceof component) return item.r();
@@ -79,6 +83,7 @@ export default class component {
           key={this.key}
           data-key={this.key}
           style={this.style}
+          {...this.other}
           className={this.choose ? "choose" : ""}
         />
       );
