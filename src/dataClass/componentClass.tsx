@@ -1,8 +1,7 @@
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import * as antd from "antd";
-import { useDrag } from "react-dnd";
-import { BaseSyntheticEvent, SyntheticEvent } from "react";
+import { Style } from "util";
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
     el.offsetParent &&
@@ -29,12 +28,13 @@ export default class component {
   type: string;
   parent: component | null;
   key: number;
-  style: Object;
+  style: any;
   children: Array<component | string>;
   event: Object;
   blink: boolean;
   other: any;
   choose: boolean = false;
+  classList: Array<string> = [];
   editEvent: Object = {
     onClick: (e: any) => {
       e.stopPropagation();
@@ -57,7 +57,13 @@ export default class component {
       }
     },
     onMouseMove: (e: any) => {
-      var target: HTMLElement = e.target as HTMLElement;
+      var targetDOM =
+        store.getState().StateReducer.targetDOM ||
+        store.getState().StateReducer.stateNode;
+      console.log(targetDOM.children.indexOf(this));
+      if (targetDOM.children.indexOf(this) === -1) {
+        return;
+      }
       var left = getElementLeft(e.target, false);
       var top = getElementTop(e.target, false);
       var width = (e.target as HTMLElement).offsetWidth;
@@ -65,32 +71,36 @@ export default class component {
       var x = e.pageX;
       var y = e.pageY;
       var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
-      console.log(top, left, width, height, x, y);
+      this.classList = this.classList.filter((value: string) => {
+        return !classes.includes(value);
+      });
       if (x > left && x < left + width / 4) {
-        target.classList.remove(...classes);
-        target.classList.add(classes[0]);
+        this.classList.push(classes[0]);
       } else if (x > left + (width * 3) / 4 && x < left + width) {
-        target.classList.remove(...classes);
-        target.classList.add(classes[1]);
+        this.classList.push(classes[1]);
       } else if (y > top && y < top + height / 4) {
-        target.classList.remove(...classes);
-        target.classList.add(classes[2]);
+        this.classList.push(classes[2]);
       } else if (y < top + height + height && y > top + (height * 3) / 4) {
-        target.classList.remove(...classes);
-        target.classList.add(classes[3]);
-      } else {
-        target.classList.remove(...classes);
+        this.classList.push(classes[3]);
       }
+      this.classList = this.classList.map((item) => {
+        return item;
+      });
+      store.dispatch({
+        type: "update",
+        data: {},
+      });
     },
-    onMouseLeave: (e: any) => {
+    onMouseLeave: () => {
       var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
-      var target: HTMLElement = e.target as HTMLElement;
-      target.classList.remove(...classes);
+      this.classList = this.classList.filter((value: string) => {
+        return !classes.includes(value);
+      });
     },
   };
   constructor(
     tag: any = "div",
-    style: Object = {},
+    style: any = {},
     event: Object = {},
     children: Array<component | string> = [],
     blink: boolean = false,
@@ -128,7 +138,10 @@ export default class component {
           key={this.key}
           data-key={this.key}
           style={this.style}
-          className={this.choose ? "choose" : ""}
+          className={[
+            this.classList.length !== 0 ? this.classList.join(" ") : null,
+            this.choose ? "choose " : null,
+          ].join(" ")}
           {...this.other}
         >
           {this.children.map((item) => {
@@ -146,7 +159,7 @@ export default class component {
           data-key={this.key}
           style={this.style}
           {...this.other}
-          className={this.choose ? "choose" : ""}
+          className={(this.choose ? "choose " : "") + this.classList.join(" ")}
         />
       );
     }
