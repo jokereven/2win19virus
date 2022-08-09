@@ -2,6 +2,7 @@ import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import * as antd from "antd";
 import { Style } from "util";
+import { search } from "redux/reducers/stateReducers";
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
     el.offsetParent &&
@@ -60,41 +61,64 @@ export default class component {
       var targetDOM =
         store.getState().StateReducer.targetDOM ||
         store.getState().StateReducer.stateNode;
-      console.log(targetDOM.children.indexOf(this));
-      if (targetDOM.children.indexOf(this) === -1) {
-        return;
+      var chooseDOM: HTMLElement | null = e.target;
+      var left: number = 0;
+      var top: number = 0;
+      var key: number | undefined = -1;
+      while (chooseDOM != null) {
+        if (chooseDOM.dataset.key !== undefined) {
+          key = parseInt(chooseDOM.dataset.key);
+          left = getElementLeft(chooseDOM, false);
+          top = getElementTop(chooseDOM, false);
+          break;
+        }
+        chooseDOM = chooseDOM.parentElement;
       }
-      var left = getElementLeft(e.target, false);
-      var top = getElementTop(e.target, false);
-      var width = (e.target as HTMLElement).offsetWidth;
-      var height = (e.target as HTMLElement).offsetHeight;
+      var optDOM = search(store.getState().StateReducer.stateNode, key);
+      if (chooseDOM === null || optDOM === null) return;
+      if (
+        targetDOM.children.some((item) => {
+          if (item instanceof component) {
+            return item.key === key;
+          } else return false;
+        }) === false
+      )
+        return;
+      var width = chooseDOM.offsetWidth;
+      var height = chooseDOM.offsetHeight;
       var x = e.pageX;
       var y = e.pageY;
       var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
-      this.classList = this.classList.filter((value: string) => {
+      optDOM.classList = optDOM.classList.filter((value: string) => {
         return !classes.includes(value);
       });
+      console.log(optDOM);
       if (x > left && x < left + width / 4) {
-        this.classList.push(classes[0]);
+        optDOM.classList.push(classes[0]);
       } else if (x > left + (width * 3) / 4 && x < left + width) {
-        this.classList.push(classes[1]);
+        optDOM.classList.push(classes[1]);
       } else if (y > top && y < top + height / 4) {
-        this.classList.push(classes[2]);
+        optDOM.classList.push(classes[2]);
       } else if (y < top + height + height && y > top + (height * 3) / 4) {
-        this.classList.push(classes[3]);
+        optDOM.classList.push(classes[3]);
       }
-      this.classList = this.classList.map((item) => {
+      optDOM.classList = optDOM.classList.map((item) => {
         return item;
       });
       store.dispatch({
         type: "update",
         data: {},
       });
+      e.stopPropagation();
     },
     onMouseLeave: () => {
       var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
       this.classList = this.classList.filter((value: string) => {
         return !classes.includes(value);
+      });
+      store.dispatch({
+        type: "update",
+        data: {},
       });
     },
   };
