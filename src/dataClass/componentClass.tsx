@@ -70,7 +70,13 @@ export default class component {
           key = parseInt(chooseDOM.dataset.key);
           left = getElementLeft(chooseDOM, false);
           top = getElementTop(chooseDOM, false);
-          break;
+          var nowDOM = search(store.getState().StateReducer.stateNode, key);
+          if (
+            typeof key === "number" &&
+            nowDOM instanceof component &&
+            targetDOM.children.indexOf(nowDOM) !== -1
+          )
+            break;
         }
         chooseDOM = chooseDOM.parentElement;
       }
@@ -92,22 +98,30 @@ export default class component {
       optDOM.classList = optDOM.classList.filter((value: string) => {
         return !classes.includes(value);
       });
-      console.log(optDOM);
+      var method;
       if (x > left && x < left + width / 4) {
         optDOM.classList.push(classes[0]);
+        method = "before";
       } else if (x > left + (width * 3) / 4 && x < left + width) {
         optDOM.classList.push(classes[1]);
+        method = "after";
       } else if (y > top && y < top + height / 4) {
         optDOM.classList.push(classes[2]);
+        method = "before";
       } else if (y < top + height + height && y > top + (height * 3) / 4) {
         optDOM.classList.push(classes[3]);
+        method = "after";
       }
       optDOM.classList = optDOM.classList.map((item) => {
         return item;
       });
+      var optDOMDate = {
+        optDOM: optDOM,
+        method: method,
+      };
       store.dispatch({
-        type: "update",
-        data: {},
+        type: stateConstantas.UPDATEMOUSEMOVE,
+        data: optDOMDate,
       });
       e.stopPropagation();
     },
