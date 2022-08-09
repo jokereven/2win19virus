@@ -2,14 +2,21 @@ import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import * as antd from "antd";
 import { useDrag } from "react-dnd";
-function getElementTop(el: any): number {
-  if (el.offsetParent && el.offsetParent.id !== "midContainer") {
+import { BaseSyntheticEvent, SyntheticEvent } from "react";
+function getElementTop(el: any, offsetMid: boolean = true): number {
+  if (
+    el.offsetParent &&
+    (!offsetMid || el.offsetParent.id !== "midContainer")
+  ) {
     return getElementTop(el.offsetParent) + el.offsetTop;
   }
   return el.offsetTop;
 }
-function getElementLeft(el: any): number {
-  if (el.offsetParent && el.offsetParent.id !== "midContainer") {
+function getElementLeft(el: any, offsetMid: boolean = true): number {
+  if (
+    el.offsetParent &&
+    (!offsetMid || el.offsetParent.id !== "midContainer")
+  ) {
     return getElementLeft(el.offsetParent) + el.offsetLeft;
   }
   return el.offsetLeft;
@@ -48,6 +55,37 @@ export default class component {
         chooseDOM = chooseDOM.parentElement;
         if (chooseDOM === null) return;
       }
+    },
+    onMouseMove: (e: any) => {
+      var target: HTMLElement = e.target as HTMLElement;
+      var left = getElementLeft(e.target, false);
+      var top = getElementTop(e.target, false);
+      var width = (e.target as HTMLElement).offsetWidth;
+      var height = (e.target as HTMLElement).offsetHeight;
+      var x = e.pageX;
+      var y = e.pageY;
+      var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
+      console.log(top, left, width, height, x, y);
+      if (x > left && x < left + width / 4) {
+        target.classList.remove(...classes);
+        target.classList.add(classes[0]);
+      } else if (x > left + (width * 3) / 4 && x < left + width) {
+        target.classList.remove(...classes);
+        target.classList.add(classes[1]);
+      } else if (y > top && y < top + height / 4) {
+        target.classList.remove(...classes);
+        target.classList.add(classes[2]);
+      } else if (y < top + height + height && y > top + (height * 3) / 4) {
+        target.classList.remove(...classes);
+        target.classList.add(classes[3]);
+      } else {
+        target.classList.remove(...classes);
+      }
+    },
+    onMouseLeave: (e: any) => {
+      var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
+      var target: HTMLElement = e.target as HTMLElement;
+      target.classList.remove(...classes);
     },
   };
   constructor(

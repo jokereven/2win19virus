@@ -67,8 +67,6 @@ function MiddlePage(props: any) {
         return value.type === monitor.getItemType();
       });
 
-      console.log(dropObj);
-
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
         store.dispatch({
