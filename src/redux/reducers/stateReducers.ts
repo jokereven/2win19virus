@@ -164,7 +164,7 @@ const StateReducer = (
       downDOM(newState.stateNode, action.data);
       return newState;
     default:
-      return state;
+      return newState;
   }
 };
 
