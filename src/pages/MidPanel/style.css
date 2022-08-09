@@ -45,3 +45,19 @@
     outline-offset: 2px;
   }
 }
+
+.hoverLeft {
+  border-left: 3px solid rgb(106, 178, 209);
+}
+
+.hoverTop {
+  border-top: 3px solid rgb(106, 178, 209);
+}
+
+.hoverRight {
+  border-right: 3px solid rgb(106, 178, 209);
+}
+
+.hoverBottom {
+  border-bottom: 3px solid rgb(106, 178, 209);
+}
