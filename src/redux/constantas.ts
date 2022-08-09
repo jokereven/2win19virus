@@ -3,7 +3,9 @@ export const stateConstantas = {
   DELETEDOM: "deleteDOM",
   CHOOSEDOM: "chooseDOM",
   INSERTBEFORE: "insertBefore",
+  INSERTAFTER: "insertAfter",
   APPENDAFTER: "appendAfter",
   UPDOM: "upDOM",
   DOWNDOM: "downDOM",
+  UPDATEMOUSEMOVE: "updatemousemove",
 };
