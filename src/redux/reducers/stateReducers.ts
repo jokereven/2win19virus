@@ -72,6 +72,51 @@ function chooseDom(
   return search(stateNode, data.key);
 }
 
+function swapDOM(
+  children: Array<component | string>,
+  place1: number,
+  place2: number
+) {
+  var child1 = children[place1];
+  var child2 = children[place2];
+  children[place1] = child2;
+  children[place2] = child1;
+}
+
+function upDOM(
+  stateNode: component,
+  data: {
+    key: number;
+  }
+) {
+  var optDOM = search(stateNode, data.key);
+  if (optDOM && optDOM.parent) {
+    var index = optDOM.parent.children.indexOf(optDOM);
+    if (index === 0) {
+      return;
+    } else {
+      swapDOM(optDOM.parent.children, index, index - 1);
+    }
+  }
+}
+
+function downDOM(
+  stateNode: component,
+  data: {
+    key: number;
+  }
+) {
+  var optDOM = search(stateNode, data.key);
+  if (optDOM && optDOM.parent) {
+    var index = optDOM.parent.children.indexOf(optDOM);
+    if (index === optDOM.parent.children.length) {
+      return;
+    } else {
+      swapDOM(optDOM.parent.children, index, index + 1);
+    }
+  }
+}
+
 const StateReducer = (
   state: {
     stateNode: component;
@@ -111,6 +156,12 @@ const StateReducer = (
       } else {
         newState.targetDOM = newState.stateNode;
       }
+      return newState;
+    case stateConstantas.UPDOM:
+      upDOM(newState.stateNode, action.data);
+      return newState;
+    case stateConstantas.DOWNDOM:
+      downDOM(newState.stateNode, action.data);
       return newState;
     default:
       return state;

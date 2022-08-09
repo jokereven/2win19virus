@@ -67,6 +67,8 @@ function MiddlePage(props: any) {
         return value.type === monitor.getItemType();
       });
 
+      console.log(dropObj);
+
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
         store.dispatch({
@@ -88,6 +90,32 @@ function MiddlePage(props: any) {
             className="optItem"
             onClick={() => {
               store.dispatch({
+                type: stateConstantas.UPDOM,
+                data: {
+                  key: target.key,
+                },
+              });
+            }}
+          >
+            上移
+          </div>
+          <div
+            className="optItem"
+            onClick={() => {
+              store.dispatch({
+                type: stateConstantas.DOWNDOM,
+                data: {
+                  key: target.key,
+                },
+              });
+            }}
+          >
+            下移
+          </div>
+          <div
+            className="optItem"
+            onClick={() => {
+              store.dispatch({
                 type: stateConstantas.DELETEDOM,
                 data: {
                   key: target.key,
@@ -102,6 +130,12 @@ function MiddlePage(props: any) {
       );
     }
   }
+  const [, drag] = useDrag(() => ({
+    type: target?.type || "",
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   return (
     <MidPanelWrapper>

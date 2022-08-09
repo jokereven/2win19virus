@@ -1,6 +1,7 @@
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import * as antd from "antd";
+import { useDrag } from "react-dnd";
 function getElementTop(el: any): number {
   if (el.offsetParent && el.offsetParent.id !== "midContainer") {
     return getElementTop(el.offsetParent) + el.offsetTop;
@@ -18,6 +19,7 @@ export default class component {
   static editMode: boolean = true;
   static count = 0;
   tag: any;
+  type: string;
   parent: component | null;
   key: number;
   style: Object;
@@ -57,6 +59,7 @@ export default class component {
     other: any = {}
   ) {
     if (typeof tag === "string") {
+      this.type = tag;
       let eleSource: any = antd;
       let proName = tag.split(".");
       for (let i = 0; i < proName.length; i++) {
@@ -65,6 +68,8 @@ export default class component {
           eleSource = eleSource[proName[i] as keyof typeof eleSource];
         }
       }
+    } else {
+      this.type = "div";
     }
     this.tag = tag;
     this.style = style;
