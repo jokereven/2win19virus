@@ -1,7 +1,7 @@
 import component from "dataClass/componentClass";
 import { stateConstantas } from "../constantas";
 
-function search(comp: component, key: number): component | null {
+export function search(comp: component, key: number): component | null {
   if (key === comp.key) {
     return comp;
   }

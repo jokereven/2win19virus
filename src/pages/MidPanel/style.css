@@ -47,17 +47,17 @@
 }
 
 .hoverLeft {
-  border-left: 3px solid rgb(106, 178, 209);
+  border-left: 3px solid rgb(106, 178, 209) !important;
 }
 
 .hoverTop {
-  border-top: 3px solid rgb(106, 178, 209);
+  border-top: 3px solid rgb(106, 178, 209) !important;
 }
 
 .hoverRight {
-  border-right: 3px solid rgb(106, 178, 209);
+  border-right: 3px solid rgb(106, 178, 209) !important;
 }
 
 .hoverBottom {
-  border-bottom: 3px solid rgb(106, 178, 209);
+  border-bottom: 3px solid rgb(106, 178, 209) !important;
 }
