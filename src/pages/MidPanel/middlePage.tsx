@@ -26,31 +26,16 @@ function MiddlePage(props: any) {
     // 0
     for (var i = 0; i < rander_component.length; i++) {
       var obj = JSON.parse(rander_component[i]);
-      var other = obj["other"];
       var type = obj["type"];
-      var children = obj["children"];
       var key = obj["key"];
       var tag = obj["tag"];
 
-      if (JSON.stringify(other) === "{}") {
-        var saveObj: any = {
-          type: type,
-          props: {
-            children: children,
-          },
-        };
-      } else {
-        var blink = obj["blink"];
-        var saveObj: any = {
-          type: type,
-          blink: blink,
-          props: {
-            other: other,
-          },
-        };
-      }
+      // eslint-disable-next-line no-loop-func
+      const dropObj: any = comps.find((value) => {
+        return value.type === type;
+      });
 
-      var saveDOM = addComponent(tag, saveObj);
+      var saveDOM = addComponent(tag, dropObj);
       store.dispatch({
         type: stateConstantas.ADDDOM,
         data: {
@@ -60,6 +45,7 @@ function MiddlePage(props: any) {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const basicTypes = basic.map((value) => {
     return value.type;
