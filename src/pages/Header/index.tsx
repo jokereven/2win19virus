@@ -29,7 +29,6 @@ export const Header: React.FC = (props: any) => {
       var val: any = arr[i];
       for (var key in val) {
         if (typeof val[key] == "number") {
-          console.log(val[key]);
           store.dispatch({
             type: stateConstantas.DELETEDOM,
             data: {
@@ -46,13 +45,13 @@ export const Header: React.FC = (props: any) => {
     const state = store.getState();
     const ClearArr = [...state.StateReducer.stateNode.children];
     ClearArr.length = 0;
-    console.log(ClearArr);
   };
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     const state = store.getState();
     const data = [...state.StateReducer.stateNode.children];
     if (data.length === 0) {
+      localStorage.removeItem("SAVE_COMPONENT");
       return;
     }
     var arr = [];
@@ -71,13 +70,15 @@ export const Header: React.FC = (props: any) => {
   return (
     <Fragment>
       <HeaderWrapper className="header">
-        <div>2win19virus</div>​{" "}
+        <div>2win19virus</div>
         <HeaderEditWrapper>
-          ​ <OpBtn onClick={UndoBtnClick}>撤销</OpBtn>​ <OpBtn>预览</OpBtn>​{" "}
-          <OpBtn onClick={SaveBtnClick}>保存到本地</OpBtn>​{" "}
-          <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>​ <OpBtn>待定</OpBtn>​{" "}
+          <OpBtn onClick={UndoBtnClick}>撤销</OpBtn>
+          <OpBtn>预览</OpBtn>
+          <OpBtn onClick={SaveBtnClick}>保存到本地</OpBtn>
+          <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
+          <OpBtn>生成代码</OpBtn>​<OpBtn>部署</OpBtn>​
         </HeaderEditWrapper>
-      </HeaderWrapper>{" "}
+      </HeaderWrapper>
     </Fragment>
   );
 };

@@ -17,13 +17,13 @@ export const HeaderWrapper = styled.div`
 export const HeaderEditWrapper = styled.div`
   display: flex;
   margin-left: 20rem;
-  width: 50rem;
   align-items: center;
   justify-content: space-evenly;
 `;
 
 export const OpBtn = styled.button`
   padding: 0 2rem;
+  margin-left: 1rem;
   height: 3rem;
   cursor: pointer;
   border: 1px solid #dfe0d9;
