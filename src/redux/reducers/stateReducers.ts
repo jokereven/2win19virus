@@ -117,32 +117,24 @@ function downDOM(
   }
 }
 
-function insertBefore(data: { optDOM: component; newDOM: component }) {
-  var { optDOM, newDOM } = data;
+function insert(data: {
+  optDOM: component;
+  newDOM: component;
+  method: "after" | "before";
+}) {
+  var { optDOM, newDOM, method } = data;
   if (optDOM.parent != null) {
+    newDOM.parent = optDOM.parent;
+    var preArr: Array<component | string>;
+    var aftArr: Array<component | string>;
     var children = optDOM.parent.children;
-    var preArr: Array<component | string> = children.slice(
-      0,
-      children.indexOf(optDOM) - 1
-    );
-    var aftArr: Array<component | string> = children.slice(
-      children.indexOf(optDOM)
-    );
-    optDOM.parent.children = [...preArr, newDOM, ...aftArr];
-  }
-}
-
-function insertAfter(data: { optDOM: component; newDOM: component }) {
-  var { optDOM, newDOM } = data;
-  if (optDOM.parent != null) {
-    var children = optDOM.parent.children;
-    var preArr: Array<component | string> = children.slice(
-      0,
-      children.indexOf(optDOM)
-    );
-    var aftArr: Array<component | string> = children.slice(
-      children.indexOf(optDOM) + 1
-    );
+    if (method === "after") {
+      preArr = children.slice(0, children.indexOf(optDOM) + 1);
+      aftArr = children.slice(children.indexOf(optDOM) + 1);
+    } else {
+      preArr = children.slice(0, children.indexOf(optDOM));
+      aftArr = children.slice(children.indexOf(optDOM));
+    }
     optDOM.parent.children = [...preArr, newDOM, ...aftArr];
   }
 }
@@ -201,16 +193,12 @@ const StateReducer = (
     case stateConstantas.DOWNDOM:
       downDOM(newState.stateNode, action.data);
       return newState;
-    case stateConstantas.INSERTBEFORE:
-      insertBefore(action.data);
-      return newState;
-    case stateConstantas.INSERTAFTER:
-      insertAfter(action.data);
+    case stateConstantas.INSERT:
+      insert(action.data);
+      newState.mouseMove.optDOM = null;
       return newState;
     case stateConstantas.UPDATEMOUSEMOVE:
       newState.mouseMove = action.data;
-      console.log(newState);
-
       return newState;
     default:
       return newState;

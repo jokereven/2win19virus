@@ -67,16 +67,39 @@ function MiddlePage(props: any) {
         return value.type === monitor.getItemType();
       });
 
+      var optDom = store.getState().StateReducer.mouseMove.optDOM;
+      var method = store.getState().StateReducer.mouseMove.method;
+      if (optDom) {
+        var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
+        optDom.classList = optDom.classList.filter((value: string) => {
+          return !classes.includes(value);
+        });
+        store.dispatch({
+          type: "update",
+          data: {},
+        });
+      }
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
-        store.dispatch({
-          type: stateConstantas.ADDDOM,
-          data: {
-            place: (target || state).key,
-            method: stateConstantas.APPENDAFTER,
-            newDOM: newDOM,
-          },
-        });
+        if (optDom) {
+          store.dispatch({
+            type: stateConstantas.INSERT,
+            data: {
+              method: method,
+              newDOM: newDOM,
+              optDOM: optDom,
+            },
+          });
+        } else {
+          store.dispatch({
+            type: stateConstantas.ADDDOM,
+            data: {
+              place: (target || state).key,
+              method: stateConstantas.APPENDAFTER,
+              newDOM: newDOM,
+            },
+          });
+        }
       }
     },
   }));
@@ -128,12 +151,6 @@ function MiddlePage(props: any) {
       );
     }
   }
-  const [, drag] = useDrag(() => ({
-    type: target?.type || "",
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
 
   return (
     <MidPanelWrapper>
