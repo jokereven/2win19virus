@@ -10,7 +10,39 @@ import { MidItemsContainer, MidPanelWrapper } from "./style";
 import basic from "../../mock/componentData/basic";
 import antdItem from "../../mock/componentData/antdItem";
 import { ElementType } from "../../types/index";
+// import addComponent from "utils/addComponent";
+import { useEffect } from "react";
+
 function MiddlePage(props: any) {
+  useEffect(() => {
+    // 将localstorage的数据render
+    var RANDER_COMPONENT: any = localStorage.getItem("SAVE_COMPONENT");
+    var rander_component = JSON.parse(RANDER_COMPONENT);
+    // addDom
+    if (rander_component == null) {
+      return;
+    }
+    // 0
+    var key = rander_component[0]["key"];
+    var tag = rander_component[0]["tag"];
+    var type = rander_component[0]["type"];
+    const saveObj = {
+      type: type,
+      props: {
+        children: [type],
+      },
+    };
+    console.log(saveObj);
+    // var saveDOM = addComponent(tag, saveObj);
+    // store.dispatch({
+    //   type: stateConstantas.ADDDOM,
+    //   data: {
+    //     place: key,
+    //     method: stateConstantas.APPENDAFTER,
+    //     newDOM: saveDOM,
+    //   },
+    // });
+  });
   const basicTypes = basic.map((value) => {
     return value.type;
   });

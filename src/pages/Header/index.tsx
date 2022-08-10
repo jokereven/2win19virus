@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
-const CircularJSON = require("circular-json");
+// const CircularJSON = require("circular-json");
 
 export const Header: React.FC = (props: any) => {
   // clear
@@ -42,7 +42,21 @@ export const Header: React.FC = (props: any) => {
     const state = store.getState();
     const data = [...state.StateReducer.stateNode.children];
     console.log(data);
-    localStorage.setItem("SAVE_COMPONENT", CircularJSON.stringify(data));
+    var cache: any = [];
+    var str = JSON.stringify(data, function (key, value) {
+      if (typeof value === "object" && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // 移除
+          return;
+        }
+        // 收集所有的值
+        cache.push(value);
+      }
+      return value;
+    });
+    cache = null; // 清空变量，便于垃圾回收机制回收
+    // 存储
+    localStorage.setItem("SAVE_COMPONENT", str);
   };
   return (
     <Fragment>
