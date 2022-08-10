@@ -3,6 +3,7 @@ import { store } from "redux/store";
 import * as antd from "antd";
 import { Style } from "util";
 import { search } from "redux/reducers/stateReducers";
+import { useDrag, useDrop } from "react-dnd";
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
     el.offsetParent &&
@@ -57,7 +58,7 @@ export default class component {
         if (chooseDOM === null) return;
       }
     },
-    onMouseMove: (e: any) => {
+    onDragOver: (e: any) => {
       var targetDOM =
         store.getState().StateReducer.targetDOM ||
         store.getState().StateReducer.stateNode;
@@ -123,9 +124,9 @@ export default class component {
         type: stateConstantas.UPDATEMOUSEMOVE,
         data: optDOMDate,
       });
-      e.stopPropagation();
+      // e.stopPropagation();
     },
-    onMouseLeave: () => {
+    onDragLeave: () => {
       var classes = ["hoverLeft", "hoverRight", "hoverTop", "hoverBottom"];
       this.classList = this.classList.filter((value: string) => {
         return !classes.includes(value);
