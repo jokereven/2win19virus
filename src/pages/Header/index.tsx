@@ -6,6 +6,19 @@ import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 // const CircularJSON = require("circular-json");
 
 export const Header: React.FC = (props: any) => {
+  // getCirculatReplacer
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key: any, value: any) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
   // clear
   const ClearBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // Get State
@@ -37,26 +50,23 @@ export const Header: React.FC = (props: any) => {
   };
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    // 保存到localstorage
-    // 页面
     const state = store.getState();
     const data = [...state.StateReducer.stateNode.children];
-    console.log(data);
-    var cache: any = [];
-    var str = JSON.stringify(data, function (key, value) {
-      if (typeof value === "object" && value !== null) {
-        if (cache.indexOf(value) !== -1) {
-          // 移除
-          return;
-        }
-        // 收集所有的值
-        cache.push(value);
-      }
-      return value;
-    });
-    cache = null; // 清空变量，便于垃圾回收机制回收
+    if (data.length === 0) {
+      return;
+    }
+    var arr = [];
+    for (var i = 0; i < data.length; i++) {
+      // save to localstorage
+      arr.push(data[i]);
+    }
+    var res = [];
+    for (var j = 0; j < arr.length; j++) {
+      var val = JSON.stringify(arr[j], getCircularReplacer());
+      res.push(val);
+    }
     // 存储
-    localStorage.setItem("SAVE_COMPONENT", str);
+    localStorage.setItem("SAVE_COMPONENT", JSON.stringify(res));
   };
   return (
     <Fragment>

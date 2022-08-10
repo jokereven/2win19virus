@@ -1,48 +1,53 @@
 import component from "dataClass/componentClass";
-import { connect } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
+import { connect } from "react-redux";
 import basicType from "../../mock/componentData/basic";
 import { Button } from "antd";
-import "./style.css";
-import { store } from "redux/store";
-import { stateConstantas } from "redux/constantas";
-import { MidItemsContainer, MidPanelWrapper } from "./style";
-import basic from "../../mock/componentData/basic";
-import antdItem from "../../mock/componentData/antdItem";
-import { ElementType } from "../../types/index";
-// import addComponent from "utils/addComponent";
 import { useEffect } from "react";
+import { stateConstantas } from "redux/constantas";
+import { store } from "redux/store";
+import addComponent from "utils/addComponent";
+import antdItem from "../../mock/componentData/antdItem";
+import basic from "../../mock/componentData/basic";
+import { ElementType } from "../../types/index";
+import { MidItemsContainer, MidPanelWrapper } from "./style";
+import "./style.css";
 
 function MiddlePage(props: any) {
   useEffect(() => {
     // 将localstorage的数据render
     var RANDER_COMPONENT: any = localStorage.getItem("SAVE_COMPONENT");
+    if (RANDER_COMPONENT === "undefined") {
+      return;
+    }
     var rander_component = JSON.parse(RANDER_COMPONENT);
     // addDom
     if (rander_component == null) {
       return;
     }
     // 0
-    var key = rander_component[0]["key"];
-    var tag = rander_component[0]["tag"];
-    var type = rander_component[0]["type"];
-    const saveObj = {
-      type: type,
-      props: {
-        children: [type],
-      },
-    };
-    console.log(saveObj);
-    // var saveDOM = addComponent(tag, saveObj);
-    // store.dispatch({
-    //   type: stateConstantas.ADDDOM,
-    //   data: {
-    //     place: key,
-    //     method: stateConstantas.APPENDAFTER,
-    //     newDOM: saveDOM,
-    //   },
-    // });
-  });
+    for (var i = 0; i < rander_component.length; i++) {
+      var obj = JSON.parse(rander_component[i]);
+      var type = obj["type"];
+      var key = obj["key"];
+      var tag = obj["tag"];
+      const saveObj: any = {
+        type: type,
+        props: {
+          children: [type],
+        },
+      };
+      var saveDOM = addComponent(tag, saveObj);
+      store.dispatch({
+        type: stateConstantas.ADDDOM,
+        data: {
+          place: key,
+          method: stateConstantas.APPENDAFTER,
+          newDOM: saveDOM,
+        },
+      });
+    }
+  }, []);
   const basicTypes = basic.map((value) => {
     return value.type;
   });
@@ -113,6 +118,7 @@ function MiddlePage(props: any) {
       }
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
+        console.log(newDOM);
         if (optDom) {
           store.dispatch({
             type: stateConstantas.INSERT,
