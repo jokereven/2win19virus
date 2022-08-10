@@ -1,16 +1,45 @@
 import component from "dataClass/componentClass";
-import { connect } from "react-redux";
+import { useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import basicType from "../../mock/componentData/basic";
-import { Button } from "antd";
-import "./style.css";
-import { store } from "redux/store";
+import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
-import { MidItemsContainer, MidPanelWrapper } from "./style";
-import basic from "../../mock/componentData/basic";
+import { store } from "redux/store";
 import antdItem from "../../mock/componentData/antdItem";
+import basic from "../../mock/componentData/basic";
 import { ElementType } from "../../types/index";
+import { MidItemsContainer, MidPanelWrapper } from "./style";
+import "./style.css";
+
 function MiddlePage(props: any) {
+  useEffect(() => {
+    // 将localstorage的数据render
+    var RANDER_COMPONENT: any = localStorage.getItem("SAVE_COMPONENT");
+    var rander_component = JSON.parse(RANDER_COMPONENT);
+    // addDom
+    if (rander_component == null) {
+      return;
+    }
+    // 0
+    var key = rander_component[0]["key"];
+    var tag = rander_component[0]["tag"];
+    var type = rander_component[0]["type"];
+    const saveObj = {
+      type: type,
+      props: {
+        children: [type],
+      },
+    };
+    console.log(saveObj);
+    // var saveDOM = addComponent(tag, saveObj);
+    // store.dispatch({
+    //   type: stateConstantas.ADDDOM,
+    //   data: {
+    //     place: key,
+    //     method: stateConstantas.APPENDAFTER,
+    //     newDOM: saveDOM,
+    //   },
+    // });
+  });
   const basicTypes = basic.map((value) => {
     return value.type;
   });
@@ -63,9 +92,12 @@ function MiddlePage(props: any) {
         }
         return newComp;
       }
+
       const dropObj = comps.find((value) => {
         return value.type === monitor.getItemType();
       });
+
+      console.log(dropObj);
 
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
