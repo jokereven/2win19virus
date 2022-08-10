@@ -7,11 +7,10 @@ import { store } from "redux/store";
 import addComponent from "utils/addComponent";
 import antdItem from "../../mock/componentData/antdItem";
 import basic from "../../mock/componentData/basic";
+import { MidItemsContainer, MidPanelWrapper } from "../../pages/MidPanel/style";
 import { ElementType } from "../../types/index";
-import { MidItemsContainer, MidPanelWrapper } from "./style";
-import "./style.css";
 
-function MiddlePage(props: any) {
+function Preview(props: any) {
   useEffect(() => {
     // 将localstorage的数据render
     var RANDER_COMPONENT: any = localStorage.getItem("SAVE_COMPONENT");
@@ -26,30 +25,15 @@ function MiddlePage(props: any) {
     // 0
     for (var i = 0; i < rander_component.length; i++) {
       var obj = JSON.parse(rander_component[i]);
-      var other = obj["other"];
       var type = obj["type"];
-      var children = obj["children"];
       var key = obj["key"];
       var tag = obj["tag"];
-
-      if (JSON.stringify(other) === "{}") {
-        var saveObj: any = {
-          type: type,
-          props: {
-            children: children,
-          },
-        };
-      } else {
-        var blink = obj["blink"];
-        var saveObj: any = {
-          type: type,
-          blink: blink,
-          props: {
-            other: other,
-          },
-        };
-      }
-
+      const saveObj: any = {
+        type: type,
+        props: {
+          children: [type],
+        },
+      };
       var saveDOM = addComponent(tag, saveObj);
       store.dispatch({
         type: stateConstantas.ADDDOM,
@@ -117,7 +101,6 @@ function MiddlePage(props: any) {
         return value.type === monitor.getItemType();
       });
 
-      console.log(dropObj);
       var optDom = store.getState().StateReducer.mouseMove.optDOM;
       var method = store.getState().StateReducer.mouseMove.method;
       if (optDom) {
@@ -231,4 +214,4 @@ const mapStateToProps = (data: any) => {
     optLeft: data.optLeft,
   };
 };
-export default connect(mapStateToProps)(MiddlePage);
+export default connect(mapStateToProps)(Preview);

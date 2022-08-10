@@ -1,4 +1,6 @@
-import React, { Fragment } from "react";
+import { Modal } from "antd";
+import Preview from "components/preview";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
@@ -6,6 +8,38 @@ import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 // const CircularJSON = require("circular-json");
 
 export const Header: React.FC = (props: any) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  // save
+  function save() {
+    const state = store.getState();
+    const data = [...state.StateReducer.stateNode.children];
+    if (data.length === 0) {
+      localStorage.removeItem("SAVE_COMPONENT");
+      return;
+    }
+    var arr = [];
+    for (var i = 0; i < data.length; i++) {
+      // save to localstorage
+      arr.push(data[i]);
+    }
+    var res = [];
+    for (var j = 0; j < arr.length; j++) {
+      var val = JSON.stringify(arr[j], getCircularReplacer());
+      res.push(val);
+    }
+    // 存储
+    localStorage.setItem("SAVE_COMPONENT", JSON.stringify(res));
+  }
+
   // getCirculatReplacer
   const getCircularReplacer = () => {
     const seen = new WeakSet();
@@ -19,6 +53,7 @@ export const Header: React.FC = (props: any) => {
       return value;
     };
   };
+
   // clear
   const ClearBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // Get State
@@ -39,6 +74,7 @@ export const Header: React.FC = (props: any) => {
       }
     }
   };
+
   // undo
   const UndoBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // Get State
@@ -46,26 +82,17 @@ export const Header: React.FC = (props: any) => {
     const ClearArr = [...state.StateReducer.stateNode.children];
     ClearArr.length = 0;
   };
+
+  // preview
+  const PreviewBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    // 保存并展示
+    save();
+    setIsModalVisible(true);
+  };
+
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    const state = store.getState();
-    const data = [...state.StateReducer.stateNode.children];
-    if (data.length === 0) {
-      localStorage.removeItem("SAVE_COMPONENT");
-      return;
-    }
-    var arr = [];
-    for (var i = 0; i < data.length; i++) {
-      // save to localstorage
-      arr.push(data[i]);
-    }
-    var res = [];
-    for (var j = 0; j < arr.length; j++) {
-      var val = JSON.stringify(arr[j], getCircularReplacer());
-      res.push(val);
-    }
-    // 存储
-    localStorage.setItem("SAVE_COMPONENT", JSON.stringify(res));
+    save();
   };
   return (
     <Fragment>
@@ -73,10 +100,20 @@ export const Header: React.FC = (props: any) => {
         <div>2win19virus</div>
         <HeaderEditWrapper>
           <OpBtn onClick={UndoBtnClick}>撤销</OpBtn>
-          <OpBtn>预览</OpBtn>
+          <OpBtn type="primary" onClick={PreviewBtnClick}>
+            预览
+          </OpBtn>
           <OpBtn onClick={SaveBtnClick}>保存到本地</OpBtn>
           <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
-          <OpBtn>生成代码</OpBtn>​<OpBtn>部署</OpBtn>​
+          <OpBtn>生成代码</OpBtn>​<OpBtn>部署</OpBtn>
+          <Modal
+            title="2win19virus"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <Preview />
+          </Modal>
         </HeaderEditWrapper>
       </HeaderWrapper>
     </Fragment>
