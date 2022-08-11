@@ -1,11 +1,11 @@
-import { Modal } from "antd";
+import { Drawer, Modal } from "antd";
+import { Editor } from "components/MonacoEditor";
 import Preview from "components/preview";
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
-// const CircularJSON = require("circular-json");
 
 export const Header: React.FC = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -16,6 +16,16 @@ export const Header: React.FC = (props: any) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
   };
 
   // save
@@ -89,6 +99,12 @@ export const Header: React.FC = (props: any) => {
     setIsModalVisible(true);
   };
 
+  // generate react
+  const GenerateClick = (event: React.MouseEvent<HTMLElement>) => {
+    showDrawer();
+    console.log("generate");
+  };
+
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     save();
@@ -104,7 +120,17 @@ export const Header: React.FC = (props: any) => {
           </OpBtn>
           <OpBtn onClick={SaveBtnClick}>保存到本地</OpBtn>
           <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
-          <OpBtn>生成代码</OpBtn>​<OpBtn>部署</OpBtn>
+          <OpBtn>部署</OpBtn>
+          <OpBtn onClick={GenerateClick}>生成react源码</OpBtn>
+          <Drawer
+            title="2win19virus"
+            placement="left"
+            width={800}
+            onClose={onClose}
+            visible={visible}
+          >
+            <Editor />
+          </Drawer>
           <Modal
             width={750}
             mask

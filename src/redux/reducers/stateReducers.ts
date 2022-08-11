@@ -53,16 +53,6 @@ function deleteDom(
   }
 }
 
-function clearDom(
-  stateNode: component,
-  data: {
-    arr: number;
-  }
-) {
-  console.log(stateNode);
-  return search(stateNode, data.arr);
-}
-
 function chooseDom(
   stateNode: component,
   data: {
