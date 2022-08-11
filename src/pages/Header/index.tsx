@@ -86,7 +86,6 @@ export const Header: React.FC = (props: any) => {
   // preview
   const PreviewBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // 保存并展示
-    save();
     setIsModalVisible(true);
   };
 
@@ -107,6 +106,8 @@ export const Header: React.FC = (props: any) => {
           <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
           <OpBtn>生成代码</OpBtn>​<OpBtn>部署</OpBtn>
           <Modal
+            width={750}
+            mask
             title="2win19virus"
             visible={isModalVisible}
             onOk={handleOk}

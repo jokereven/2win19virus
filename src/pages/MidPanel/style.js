@@ -5,6 +5,10 @@ export const MidPanelWrapper = styled.div`
   width: 50vw;
   border-left: 2px solid #38a1db;
   border-right: 2px solid #38a1db;
+  &.noline {
+    border: none;
+    pointer-events: none;
+  }
 `;
 
 export const MidItemsContainer = styled.div`
