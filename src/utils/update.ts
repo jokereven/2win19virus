@@ -10,8 +10,8 @@ export function update() {
       <div className="App">
       ${grm}
       </div>
-      );
-    }`;
+    );
+}`;
   return function () {
     return code;
   };
