@@ -44,6 +44,7 @@ export function generate_react_matlab(GenObj: any) {
       generate_matlab += gen_sel_dom + "\n\t\t\t";
     } else {
       var matlab_value = dropObj?.props["children"][0];
+
       const gen_dom = `<${gen_type}>${matlab_value}</${gen_type}>`;
       generate_matlab += gen_dom + "\n\t\t\t";
     }
