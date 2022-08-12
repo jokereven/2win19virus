@@ -23,18 +23,19 @@ export function generate_react_matlab(GenObj: any) {
         var key = Object.keys(other)[j];
         var value = other[Object.keys(other)[j]];
         // eslint-disable-next-line no-useless-concat
-        str += " " + key + "=" + '"' + value + '"' + " ";
+        str += " " + key + "=" + '"' + value + '"' + "\n\t\t\t";
       }
       const gen_blink_dom = `<${gen_type}${str}></${gen_type}>`;
       console.log(gen_blink_dom, typeof gen_blink_dom);
-      generate_matlab += gen_blink_dom + "\n";
+      generate_matlab += gen_blink_dom + "";
     } else {
       var matlab_value = dropObj?.props["children"][0];
       const gen_dom = `<${gen_type}>${matlab_value}</${gen_type}>`;
       console.log(gen_dom);
-      generate_matlab += gen_dom + "\n";
+      generate_matlab += gen_dom + "\n\t\t\t";
       const state = store.getState();
       state.StateReducer.generate_matlab = generate_matlab;
+      console.log(state);
     }
     // 绘制对象
     // 生成代码

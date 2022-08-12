@@ -1,11 +1,12 @@
 import { Drawer, Modal } from "antd";
-import { Editor } from "components/MonacoEditor";
 import Preview from "components/preview";
 import React, { Fragment, useState } from "react";
+import MonacoEditor from "react-monaco-editor";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import { generate_react_matlab } from "utils/generateReactMatlab";
+import { update } from "./../../utils/update";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 
 export const Header: React.FC = (props: any) => {
@@ -131,7 +132,14 @@ export const Header: React.FC = (props: any) => {
             onClose={onClose}
             visible={visible}
           >
-            <Editor />
+            <MonacoEditor
+              width="600"
+              height="800"
+              language="javascript"
+              theme="vs"
+              defaultValue=""
+              value={update()()}
+            />
           </Drawer>
           <Modal
             width={750}
