@@ -32,7 +32,7 @@ export default class component {
   key: number;
   style: any;
   children: Array<component | string>;
-  event: Object;
+  event: Object = {};
   blink: boolean;
   other: any;
   choose: boolean = false;
@@ -238,5 +238,57 @@ export default class component {
         );
       }
     }
+  }
+  d() {
+    let resCode = `<${this.type}`;
+    if (this.style && this.style instanceof Object) {
+      if (this.style instanceof Object) {
+        resCode += " style={";
+        let styleKeys = Object.keys(this.style);
+        styleKeys.forEach((value) => {
+          resCode += `${value}:"${
+            this.style[value as keyof typeof this.style]
+          },"`;
+        });
+        resCode += "}";
+      }
+    }
+    if (this.event) {
+      let eventKeys = Object.keys(this.event);
+      eventKeys.forEach((value) => {
+        console.log(value);
+        console.log(this.event[value as keyof typeof this.event]);
+        resCode += ` ${value}:{${
+          this.event[value as keyof typeof this.event]
+        }}`;
+      });
+    }
+    if (this.other) {
+      let eventKeys = Object.keys(this.other);
+      eventKeys.forEach((value) => {
+        resCode += ` ${value}:{${
+          this.other[value as keyof typeof this.other]
+        }}`;
+      });
+    }
+    if (this.blink) {
+      resCode += ` />`;
+      return resCode;
+    } else {
+      resCode += `>`;
+    }
+    if (this.children && this.children.length !== 0) {
+      this.children.forEach((value) => {
+        if (value instanceof component) {
+          resCode += `
+          ${value.d()}
+          `;
+        } else {
+          resCode += ` ${value} `;
+        }
+      });
+    }
+    resCode += `</${this.type}>`;
+    return resCode;
   }
 }
