@@ -5,6 +5,7 @@ import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
+import { generate_react_matlab } from "utils/generateReactMatlab";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 
 export const Header: React.FC = (props: any) => {
@@ -100,9 +101,10 @@ export const Header: React.FC = (props: any) => {
   };
 
   // generate react
-  const GenerateClick = (event: React.MouseEvent<HTMLElement>) => {
+  const GenerateClick = (event: React.MouseEvent<HTMLElement>, gc: any) => {
+    const state = store.getState();
+    generate_react_matlab(state.StateReducer.stateNode.children);
     showDrawer();
-    console.log("generate");
   };
 
   //save

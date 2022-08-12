@@ -139,6 +139,7 @@ const StateReducer = (
     };
     optTop: number;
     optLeft: number;
+    generate_matlab: string;
   } = {
     stateNode: new component("div", {}, {}, []),
     targetDOM: null,
@@ -148,6 +149,7 @@ const StateReducer = (
     },
     optLeft: 0,
     optTop: 0,
+    generate_matlab: "",
   },
   action: {
     type: string;

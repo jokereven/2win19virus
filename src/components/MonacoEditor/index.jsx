@@ -1,21 +1,34 @@
 import { Component } from "react";
 import MonacoEditor from "react-monaco-editor";
+import { store } from "../../redux/store";
+
+var gen_rea_mat = store.getState();
+function update() {
+  console.log(gen_rea_mat)
+  var grm = gen_rea_mat.StateReducer.generate_matlab;
+  return function () {
+    return grm;
+  };
+}
 
 const code = `import React from "react";
-
 export default function App() {
   return (
-    <div className="App">
-      2win19virus
-    </div>
+    <div className="App">${update()()}</div>
   );
 }`;
+
 export class Editor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       code,
     };
+  }
+
+  componentDidUpdate() {
+    update()
+    console.log(update()())
   }
 
   onChange(newValue, e) {
