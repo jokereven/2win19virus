@@ -141,7 +141,16 @@ const StateReducer = (
     optLeft: number;
     generate_matlab: string;
   } = {
-    stateNode: new component("div", {}, {}, []),
+    stateNode: new component(
+      "div",
+      {},
+      {
+        onClick: () => {
+          console.log(111);
+        },
+      },
+      []
+    ),
     targetDOM: null,
     mouseMove: {
       optDOM: null,

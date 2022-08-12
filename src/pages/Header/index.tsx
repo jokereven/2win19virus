@@ -98,6 +98,8 @@ export const Header: React.FC = (props: any) => {
   // preview
   const PreviewBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // 保存并展示
+    console.log(store.getState().StateReducer.stateNode.d());
+
     setIsModalVisible(true);
   };
 
