@@ -168,39 +168,75 @@ export default class component {
     this.other = other;
     component.count++;
   }
-  r(): any {
-    if (!this.blink) {
-      return (
-        <this.tag
-          {...this.editEvent}
-          {...this.event}
-          key={this.key}
-          data-key={this.key}
-          style={this.style}
-          className={[
-            this.classList.length !== 0 ? this.classList.join(" ") : null,
-            this.choose ? "choose " : null,
-          ].join(" ")}
-          {...this.other}
-        >
-          {this.children.map((item) => {
-            if (item instanceof component) return item.r();
-            else return item;
-          })}
-        </this.tag>
-      );
+  r(preView: boolean = false): any {
+    if (preView) {
+      if (!this.blink) {
+        return (
+          <this.tag
+            {...this.event}
+            key={this.key}
+            data-key={this.key}
+            style={this.style}
+            className={[
+              this.classList.length !== 0 ? this.classList.join(" ") : null,
+              this.choose ? "choose " : null,
+            ].join(" ")}
+            {...this.other}
+          >
+            {this.children.map((item) => {
+              if (item instanceof component) return item.r();
+              else return item;
+            })}
+          </this.tag>
+        );
+      } else {
+        return (
+          <this.tag
+            {...this.event}
+            key={this.key}
+            data-key={this.key}
+            style={this.style}
+            {...this.other}
+            className={
+              (this.choose ? "choose " : "") + this.classList.join(" ")
+            }
+          />
+        );
+      }
     } else {
-      return (
-        <this.tag
-          {...this.editEvent}
-          {...this.event}
-          key={this.key}
-          data-key={this.key}
-          style={this.style}
-          {...this.other}
-          className={(this.choose ? "choose " : "") + this.classList.join(" ")}
-        />
-      );
+      if (!this.blink) {
+        return (
+          <this.tag
+            {...this.editEvent}
+            key={this.key}
+            data-key={this.key}
+            style={this.style}
+            className={[
+              this.classList.length !== 0 ? this.classList.join(" ") : null,
+              this.choose ? "choose " : null,
+            ].join(" ")}
+            {...this.other}
+          >
+            {this.children.map((item) => {
+              if (item instanceof component) return item.r();
+              else return item;
+            })}
+          </this.tag>
+        );
+      } else {
+        return (
+          <this.tag
+            {...this.editEvent}
+            key={this.key}
+            data-key={this.key}
+            style={this.style}
+            {...this.other}
+            className={
+              (this.choose ? "choose " : "") + this.classList.join(" ")
+            }
+          />
+        );
+      }
     }
   }
 }

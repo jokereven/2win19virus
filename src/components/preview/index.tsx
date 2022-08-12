@@ -9,7 +9,7 @@ function Preview(props: any) {
 
   return (
     <MidPanelWrapper className="noline">
-      <MidItemsContainer>{state.r()}</MidItemsContainer>
+      <MidItemsContainer>{state.r(true)}</MidItemsContainer>
     </MidPanelWrapper>
   );
 }
