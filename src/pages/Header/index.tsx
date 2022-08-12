@@ -1,7 +1,7 @@
 import { Drawer, Modal } from "antd";
 import Preview from "components/preview";
 import React, { Fragment, useState } from "react";
-import MonacoEditor from "react-monaco-editor";
+import MonacoEditor, { monaco } from "react-monaco-editor";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
@@ -112,6 +112,21 @@ export const Header: React.FC = (props: any) => {
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     save();
   };
+  const options = {
+    selectOnLineNumbers: true,
+    renderSideBySide: false,
+  };
+  //自定义配置主题
+  monaco.editor.defineTheme("myTheme", {
+    base: "vs",
+    inherit: true,
+    rules: [{ background: "EDF9FA", token: "" }],
+    colors: {
+      "editor.foreground": "#88abda",
+    },
+  });
+  monaco.editor.setTheme("myTheme");
+
   return (
     <Fragment>
       <HeaderWrapper className="header">
@@ -135,6 +150,7 @@ export const Header: React.FC = (props: any) => {
             <MonacoEditor
               width="600"
               height="800"
+              options={options}
               language="javascript"
               theme="vs"
               defaultValue=""
