@@ -1,9 +1,7 @@
-import { stateConstantas } from "redux/constantas";
-import { store } from "redux/store";
 import * as antd from "antd";
-import { Style } from "util";
+import { stateConstantas } from "redux/constantas";
 import { search } from "redux/reducers/stateReducers";
-import { useDrag, useDrop } from "react-dnd";
+import { store } from "redux/store";
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
     el.offsetParent &&
@@ -265,11 +263,18 @@ export default class component {
     }
     if (this.other) {
       let eventKeys = Object.keys(this.other);
-      eventKeys.forEach((value) => {
-        resCode += ` ${value}:{${
-          this.other[value as keyof typeof this.other]
-        }}`;
-      });
+      if (this.type === "Table") {
+        console.log(this.other);
+        eventKeys.forEach((value) => {
+          resCode += ` ${value}={${value}}`;
+        });
+      } else {
+        eventKeys.forEach((value) => {
+          resCode += ` ${value}="${
+            this.other[value as keyof typeof this.other]
+          }"`;
+        });
+      }
     }
     if (this.blink) {
       resCode += ` />`;

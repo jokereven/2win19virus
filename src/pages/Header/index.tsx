@@ -5,7 +5,6 @@ import MonacoEditor, { monaco } from "react-monaco-editor";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-import { generate_react_matlab } from "utils/generateReactMatlab";
 import { update } from "./../../utils/update";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 
@@ -103,16 +102,25 @@ export const Header: React.FC = (props: any) => {
 
   // preview
   const PreviewBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    store.dispatch({
+      type: stateConstantas.CHOOSEDOM,
+      data: {
+        key: -1,
+      },
+    });
     // 展示
-    console.log(store.getState().StateReducer.stateNode.d());
+    // console.log(store.getState().StateReducer.stateNode.d());
 
     setIsModalVisible(true);
   };
 
   // generate react
   const GenerateClick = (event: React.MouseEvent<HTMLElement>, gc: any) => {
-    const state = store.getState();
-    generate_react_matlab(state.StateReducer.stateNode.children);
+    // const state = store.getState();
+    // generate_react_matlab(state.StateReducer.stateNode.children);
+    // 换一种新形势生成源码
+    update()();
+    // console.log(store.getState().StateReducer.stateNode.d());
     showDrawer();
   };
 
