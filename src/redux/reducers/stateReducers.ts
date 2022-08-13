@@ -146,7 +146,7 @@ const StateReducer = (
       {},
       {
         onClick: () => {
-          console.log(111);
+          console.log("new component");
         },
       },
       []

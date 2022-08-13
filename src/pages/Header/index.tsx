@@ -85,6 +85,12 @@ export const Header: React.FC = (props: any) => {
         }
       }
     }
+    store.dispatch({
+      type: stateConstantas.CHOOSEDOM,
+      data: {
+        key: -1,
+      },
+    });
   };
 
   // undo
@@ -97,7 +103,7 @@ export const Header: React.FC = (props: any) => {
 
   // preview
   const PreviewBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    // 保存并展示
+    // 展示
     console.log(store.getState().StateReducer.stateNode.d());
 
     setIsModalVisible(true);
