@@ -137,7 +137,7 @@ export const Header: React.FC = (props: any) => {
     var rstr = randomString(16);
     save(rstr);
     const w = window.open("about:blank");
-    w!.location.href = `/deploy?id=${rstr}`;
+    w!.location.href = `/deploy/?id=${rstr}`;
   };
 
   const options = {

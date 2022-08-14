@@ -11,7 +11,7 @@ import "./App.css";
 import { store } from "./redux/store";
 // mock
 import { NotFound } from "components/404";
-import { Deploy } from "pages/deploy";
+import Deploy from "pages/deploy";
 import drawData from "./mock/drawData.json";
 import { LeftPanel } from "./pages/LeftPanel";
 import RightPanel from "./pages/RightPanel";
