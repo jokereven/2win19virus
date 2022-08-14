@@ -5,6 +5,7 @@ import MonacoEditor, { monaco } from "react-monaco-editor";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
+import { randomString } from "./../../utils/randomString";
 import { update } from "./../../utils/update";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 
@@ -30,11 +31,12 @@ export const Header: React.FC = (props: any) => {
   };
 
   // save
-  function save() {
+  function save(save: string) {
     const state = store.getState();
     const data = [...state.StateReducer.stateNode.children];
+    console.log(data);
     if (data.length === 0) {
-      localStorage.removeItem("SAVE_COMPONENT");
+      localStorage.removeItem(save);
       return;
     }
     var arr = [];
@@ -48,7 +50,7 @@ export const Header: React.FC = (props: any) => {
       res.push(val);
     }
     // 存储
-    localStorage.setItem("SAVE_COMPONENT", JSON.stringify(res));
+    localStorage.setItem(save, JSON.stringify(res));
   }
 
   // getCirculatReplacer
@@ -126,8 +128,18 @@ export const Header: React.FC = (props: any) => {
 
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    save();
+    save("SAVE_COMPONENT");
   };
+
+  // build
+  const BuildBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    // 随机字符串
+    var rstr = randomString(16);
+    save(rstr);
+    const w = window.open("about:blank");
+    w!.location.href = `/deploy?id=${rstr}`;
+  };
+
   const options = {
     selectOnLineNumbers: true,
     renderSideBySide: false,
@@ -154,7 +166,7 @@ export const Header: React.FC = (props: any) => {
           </OpBtn>
           <OpBtn onClick={SaveBtnClick}>保存到本地</OpBtn>
           <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
-          <OpBtn>部署</OpBtn>
+          <OpBtn onClick={BuildBtnClick}>部署</OpBtn>
           <OpBtn onClick={GenerateClick}>生成react源码</OpBtn>
           <Drawer
             title="2win19virus"

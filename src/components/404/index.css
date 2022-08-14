@@ -1,0 +1,8 @@
+.notfound {
+  padding: 1rem;
+  font-family: 宋体;
+  font-size: 24px;
+  font-weight: 600;
+  color: #4994c4;
+  display: flex;
+}

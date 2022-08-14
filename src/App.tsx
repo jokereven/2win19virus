@@ -1,17 +1,19 @@
 import { Header } from "pages/Header";
 import MiddlePage from "pages/MidPanel/middlePage";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // React dnd
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 // App scrollbar css
-import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import "./App.css";
+import { store } from "./redux/store";
 // mock
+import { NotFound } from "components/404";
+import { Deploy } from "pages/deploy";
 import drawData from "./mock/drawData.json";
 import { LeftPanel } from "./pages/LeftPanel";
-import MidPanel from "./pages/MidPanel";
 import RightPanel from "./pages/RightPanel";
 import "./scrollbar.css";
 import { RIGHT_PANEL_TYPE } from "./types";
@@ -25,24 +27,30 @@ const App: React.FC = () => {
     <DndProvider backend={HTML5Backend}>
       <Provider store={store}>
         <div className="App">
-          <Header></Header>
-          <div className="content">
-            <LeftPanel />
-            {/* <MidPanel
-            key={`${drawPanelData.length}-${Math.random()}`}
-            data={drawPanelData}
-            setRightPanelType={setRightPanelType}
-            setRightRanelElementId={setRightRanelElementId}
-            setData={setDrawPanelData}
-          /> */}
-            <MiddlePage></MiddlePage>
-            <RightPanel
-              type={rightPanelType}
-              data={drawPanelData}
-              elementId={rightRanelElementId}
-              setDrawPanelData={setDrawPanelData}
-            />
-          </div>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Fragment>
+                    <Header></Header>
+                    <div className="content">
+                      <LeftPanel />
+                      <MiddlePage></MiddlePage>
+                      <RightPanel
+                        type={rightPanelType}
+                        data={drawPanelData}
+                        elementId={rightRanelElementId}
+                        setDrawPanelData={setDrawPanelData}
+                      />
+                    </div>
+                  </Fragment>
+                }
+              ></Route>
+              <Route path="/deploy" element={<Deploy />}></Route>
+              <Route path="*" element={<NotFound />}></Route>
+            </Routes>
+          </BrowserRouter>
         </div>
       </Provider>
     </DndProvider>
