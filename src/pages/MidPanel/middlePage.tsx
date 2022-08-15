@@ -26,6 +26,24 @@ function MiddlePage(props: any) {
     // 0
     for (var i = 0; i < rander_component.length; i++) {
       var obj = JSON.parse(rander_component[i]);
+      var type = obj["type"];
+      var key = obj["key"];
+      var tag = obj["tag"];
+
+      // eslint-disable-next-line no-loop-func
+      const dropObj: any = comps.find((value) => {
+        return value.type === type;
+      });
+
+      var saveDOM = addComponent(tag, dropObj);
+      store.dispatch({
+        type: stateConstantas.ADDDOM,
+        data: {
+          place: key,
+          method: stateConstantas.APPENDAFTER,
+          newDOM: saveDOM,
+        },
+      });
       // 遍历obj的children看是否有嵌套
       if (obj.children.length > 1) {
         for (var j = 1; j < obj.children.length; j++) {
@@ -49,24 +67,6 @@ function MiddlePage(props: any) {
           });
         }
       }
-      var type = obj["type"];
-      var key = obj["key"];
-      var tag = obj["tag"];
-
-      // eslint-disable-next-line no-loop-func
-      const dropObj: any = comps.find((value) => {
-        return value.type === type;
-      });
-
-      var saveDOM = addComponent(tag, dropObj);
-      store.dispatch({
-        type: stateConstantas.ADDDOM,
-        data: {
-          place: key,
-          method: stateConstantas.APPENDAFTER,
-          newDOM: saveDOM,
-        },
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
