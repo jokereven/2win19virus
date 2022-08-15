@@ -28,6 +28,30 @@ function Deploy(props: any) {
     // 0
     for (var i = 0; i < rander_component.length; i++) {
       var obj = JSON.parse(rander_component[i]);
+      // 遍历obj的children看是否有嵌套
+      if (obj.children.length > 1) {
+        for (var j = 1; j < obj.children.length; j++) {
+          var ctype = obj.children[j]["type"];
+          var ckey = obj.children[j]["key"];
+          var ctag = obj.children[j]["tag"];
+
+          // eslint-disable-next-line no-loop-func
+          const cdropObj: any = comps.find((value) => {
+            return value.type === ctype;
+          });
+
+          var csaveDOM = addComponent(ctag, cdropObj);
+          store.dispatch({
+            type: stateConstantas.ADDDOM,
+            data: {
+              place: ckey,
+              method: stateConstantas.APPENDAFTER,
+              newDOM: csaveDOM,
+            },
+          });
+        }
+      }
+
       var type = obj["type"];
       var key = obj["key"];
       var tag = obj["tag"];
