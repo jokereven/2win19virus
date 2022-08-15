@@ -101,7 +101,7 @@ function MiddlePage(props: any) {
       ): component {
         var newComp = new component(
           compInfo.type,
-          compInfo.props.style || {},
+          compInfo.props.style || "",
           compInfo.props.event || {},
           [],
           compInfo.blink || false,
