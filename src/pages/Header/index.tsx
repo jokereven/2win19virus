@@ -42,6 +42,10 @@ export const Header: React.FC = (props: any) => {
     var arr = [];
     for (var i = 0; i < data.length; i++) {
       // save to localstorage
+      // 处理字符串
+      if (typeof data[i] === "string") {
+        continue;
+      }
       arr.push(data[i]);
     }
     var res = [];

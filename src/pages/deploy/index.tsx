@@ -2,13 +2,13 @@ import component from "dataClass/componentClass";
 import { useEffect } from "react";
 import { useDrop } from "react-dnd";
 import { connect } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import addComponent from "utils/addComponent";
 import antdItem from "../../mock/componentData/antdItem";
 import basic from "../../mock/componentData/basic";
 import { ElementType } from "../../types/index";
-import { useSearchParams } from "react-router-dom";
 import "./index.css";
 
 function Deploy(props: any) {
@@ -137,7 +137,12 @@ function Deploy(props: any) {
     },
   }));
 
-  return <div className="deploy">{state.r()}</div>;
+  return (
+    <div className="deploy">
+      {/* {state.d()} */}
+      {state.r()}
+    </div>
+  );
 }
 const mapStateToProps = (data: any) => {
   return {

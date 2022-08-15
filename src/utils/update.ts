@@ -6,7 +6,6 @@ export function update() {
   var generate_import_antd = GenerateImportTable();
   var gia = GenerateImportTable() ? `${generate_import_antd}` : "";
   var generate_import = GenerateImport();
-  console.log(generate_import);
   var gen_rea_mat = store.getState().StateReducer.stateNode.d();
   const code = `import React from "react";
 import {${generate_import}} from 'antd'
