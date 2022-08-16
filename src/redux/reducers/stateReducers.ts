@@ -143,7 +143,7 @@ const StateReducer = (
   } = {
     stateNode: new component(
       "div",
-      "",
+      {},
       {
         onClick: () => {
           console.log("new component");

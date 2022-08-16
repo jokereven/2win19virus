@@ -28,7 +28,7 @@ export default class component {
   type: string;
   parent: component | null;
   key: number;
-  style: string;
+  style: any;
   children: Array<component | string>;
   event: Object = {};
   blink: boolean;
@@ -137,7 +137,7 @@ export default class component {
   };
   constructor(
     tag: any = "div",
-    style: string = "{}",
+    style: any = {},
     event: Object = {},
     children: Array<component | string> = [],
     blink: boolean = false,
@@ -174,7 +174,7 @@ export default class component {
             {...this.event}
             key={this.key}
             data-key={this.key}
-            style={this.style === "" ? null : JSON.parse(this.style)}
+            style={this.style}
             className={[
               this.classList.length !== 0 ? this.classList.join(" ") : null,
               this.choose ? "choose " : null,
@@ -193,7 +193,7 @@ export default class component {
             {...this.event}
             key={this.key}
             data-key={this.key}
-            style={this.style === "" ? null : JSON.parse(this.style)}
+            style={this.style}
             {...this.other}
             className={
               (this.choose ? "choose " : "") + this.classList.join(" ")
@@ -208,7 +208,7 @@ export default class component {
             {...this.editEvent}
             key={this.key}
             data-key={this.key}
-            style={this.style === "" ? null : JSON.parse(this.style)}
+            style={this.style}
             className={[
               this.classList.length !== 0 ? this.classList.join(" ") : null,
               this.choose ? "choose " : null,
@@ -227,7 +227,7 @@ export default class component {
             {...this.editEvent}
             key={this.key}
             data-key={this.key}
-            style={this.style === "" ? null : JSON.parse(this.style)}
+            style={this.style}
             {...this.other}
             className={
               (this.choose ? "choose " : "") + this.classList.join(" ")
@@ -239,10 +239,17 @@ export default class component {
   }
   d() {
     let resCode = `<${this.type}`;
-    if (this.style) {
-      resCode += " style={";
-      resCode += this.style;
-      resCode += "}";
+    if (this.style && this.style instanceof Object) {
+      if (this.style instanceof Object) {
+        resCode += " style={";
+        let styleKeys = Object.keys(this.style);
+        styleKeys.forEach((value) => {
+          resCode += `${value}:"${
+            this.style[value as keyof typeof this.style]
+          },"`;
+        });
+        resCode += "}";
+      }
     }
     if (this.event) {
       let eventKeys = Object.keys(this.event);
