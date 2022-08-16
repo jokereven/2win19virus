@@ -5,6 +5,7 @@ import MonacoEditor, { monaco } from "react-monaco-editor";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
+import { undoSave } from "utils/undoSave";
 import { randomString } from "./../../utils/randomString";
 import { update } from "./../../utils/update";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
@@ -112,7 +113,8 @@ export const Header: React.FC = (props: any) => {
     // Get State
     const state = store.getState();
     const ClearArr = [...state.StateReducer.stateNode.children];
-    ClearArr.length = 0;
+    // TODO 类似撤销
+    undoSave();
   };
 
   // preview
