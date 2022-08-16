@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import addComponent from "utils/addComponent";
+import { undoSave } from "utils/undoSave";
 import antdItem from "../../mock/componentData/antdItem";
 import basic from "../../mock/componentData/basic";
 import { ElementType } from "../../types/index";
@@ -142,6 +143,7 @@ function MiddlePage(props: any) {
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
         console.log(newDOM);
+        undoSave();
         if (optDom) {
           store.dispatch({
             type: stateConstantas.INSERT,
@@ -197,6 +199,7 @@ function MiddlePage(props: any) {
           <div
             className="optItem"
             onClick={() => {
+              undoSave();
               store.dispatch({
                 type: stateConstantas.DELETEDOM,
                 data: {
