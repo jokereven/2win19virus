@@ -7,4 +7,5 @@ export const stateConstantas = {
   UPDOM: "upDOM",
   DOWNDOM: "downDOM",
   UPDATEMOUSEMOVE: "updatemousemove",
+  UPDATETARGETDOM: "updateTargetDOM",
 };
