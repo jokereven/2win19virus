@@ -1,169 +1,136 @@
 import { ElementType, RIGHT_PANEL_TYPE } from "../../types";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
 import component from "dataClass/componentClass";
+import basic from "../../mock/componentData/basic";
+import { IEditField, basicEditFields } from "../../mock/componentData/basic";
+import { findPropsByType, isValidKey } from "utils/findPropsByType";
+
 import "./style.css";
 
-type RightPanelProps = {
-  type: RIGHT_PANEL_TYPE;
-  data: Array<ElementType>;
-  elementId: string;
-  setDrawPanelData: Function;
-};
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
 
-export default function RightPanel({
-  type,
-  data,
-  elementId,
-  setDrawPanelData,
-}: RightPanelProps) {
-  // const [targetComponent, setTargetComponent] = useState<component | null>(store.getState().StateReducer.targetDOM)
-  const targetComponent = store.getState().StateReducer.targetDOM;
+export function RightPanel(props: any) {
+  //创建引用，方便右面板修改
+  let targetComponent = store.getState().StateReducer.targetDOM;
 
-  const findCurrentElement = (id: string) => {
-    return data.find((item: ElementType) => item.id === id);
+  //onChange处理
+  const handleChange = (key: keyof component, value: any) => {
+    //对于children要特殊处理，应处理第0个元素
+    console.log(value);
+    // if (key === "style") {
+    //   targetComponent!['style'] = "height: '90px'";
+    // }
+    if (key === "children") {
+      targetComponent![key][0] = value;
+    } else {
+      //根据配置项找到对应引用，并赋值
+      const keyArr = key.split(".");
+      let ref: any = targetComponent;
+      for (let i = 0; i < keyArr.length - 1; i++) {
+        ref = ref[keyArr[i]];
+      }
+      ref[keyArr[keyArr.length - 1]] = value;
+    }
+    //修改引用后通知更新，触发重新渲染
+    store.dispatch({
+      type: stateConstantas.UPDATETARGETDOM,
+      data: {},
+    });
   };
 
-  //调用unsubscribe避免重复监听
-  useEffect(() => {
-    let unsubscribe = store.subscribe(() => {
-      const state = store.getState();
-      console.log("change", state.StateReducer.targetDOM);
-      // setTargetComponent(state.StateReducer.targetDOM)
-
-      // targetComponent!.children[0] = "string";
-      //只能直接修改targetDOM
-      state.StateReducer.targetDOM!.children[0] = "string";
-      // setTargetComponent((prevState) => {
-      //   return { ...prevState};
-      // });
+  //从component中根据参数配置形如"other.src"获取值
+  const getValueFromComponentByProps: any = (
+    comp: component,
+    props: string
+  ) => {
+    const propArr = props.split(".");
+    let value: any = comp;
+    propArr.forEach((item) => {
+      value = value[item];
     });
-    return () => {
-      unsubscribe();
-    };
-  });
+    return value;
+  };
 
-  const changeElementData = (id: string, key: string, newData: any) => {
-    const element = findCurrentElement(id);
-    if (element) {
-      (element[key as keyof typeof element] as any) = newData;
-      setDrawPanelData([...data]);
+  const renderField = (item: IEditField) => {
+    const { prop, name, type, ...other } = item;
+    if (targetComponent instanceof component) {
+      console.info("item:", item, "c", targetComponent);
+
+      // 划分type
+      switch (type) {
+        case "Text":
+          //children特殊处理，取[0]
+          if (prop === "children") {
+            //还要判断children[0]是字符串还是component
+            if (typeof targetComponent[prop][0] == "string") {
+              return (
+                <input
+                  key={targetComponent.key}
+                  value={targetComponent[prop][0] as string}
+                  onChange={(e) => handleChange(prop, e.target.value)}
+                />
+              );
+            } else {
+              // 如果是component，则表示targetComponent[prop]不需要编辑
+              return <div>如需编辑该项，请删除所有子组件</div>;
+            }
+          } else {
+            return (
+              <input
+                key={targetComponent.key}
+                value={getValueFromComponentByProps(targetComponent, prop)}
+                onChange={(e) =>
+                  handleChange(prop as keyof component, e.target.value)
+                }
+              />
+            );
+          }
+        case "EditableTable":
+          return <></>;
+      }
     }
+    return <></>;
   };
 
   const generateRightPanel = () => {
     //顺便收缩类型
     if (targetComponent instanceof component) {
-      return <div>编辑 {targetComponent.type}</div>;
+      // 根据basicEditFields中的配置动态创建可编辑项，每个编辑项的具体组件（比如input还是select）由type决定
+      return (
+        <div>
+          <div>编辑 {targetComponent.type}</div>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="属性" key="1">
+              <div>
+                {basicEditFields[targetComponent.type].map(
+                  (item: IEditField) => {
+                    const { name } = item;
+                    return (
+                      <div className="">
+                        <div>{name}:</div>
+                        <div className="">{renderField(item)}</div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </TabPane>
+            <TabPane tab="样式" key="2">
+              Content of Tab Pane 2
+            </TabPane>
+            <TabPane tab="事件" key="3">
+              Content of Tab Pane 3
+            </TabPane>
+          </Tabs>
+        </div>
+      );
     } else {
       return <div>请选择组件，注意，点击空白区域后默认选中根组件</div>;
     }
-
-    // if (type === RIGHT_PANEL_TYPE.NONE) {
-    //   return <div>Edit</div>;
-    // }
-    // switch (type) {
-    //   case RIGHT_PANEL_TYPE.TEXT:
-    //     const elementData = findCurrentElement(elementId);
-    //     if (!elementData) {
-    //       // return <div>Edit</div>;
-    //       return;
-    //     }
-    //     const inputDomObject: Array<HTMLInputElement> = [];
-
-    //     return (
-    //       <div key={elementId}>
-    //         <div>text</div>
-    //         <br />
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>value:</div>
-    //           <input
-    //             defaultValue={elementData.data}
-    //             ref={(element) => {
-    //               inputDomObject[0] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>color:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.color}
-    //             ref={(element) => {
-    //               inputDomObject[1] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>size:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.size}
-    //             ref={(element) => {
-    //               inputDomObject[2] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>width:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.width}
-    //             ref={(element) => {
-    //               inputDomObject[3] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>height:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.height}
-    //             ref={(element) => {
-    //               inputDomObject[4] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>top:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.top}
-    //             ref={(element) => {
-    //               inputDomObject[5] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <div className="flex-row-space-between text-config-item">
-    //           <div>left:</div>
-    //           <input
-    //             defaultValue={elementData.props.style.left}
-    //             ref={(element) => {
-    //               inputDomObject[6] = element!;
-    //             }}
-    //             type="text"
-    //           ></input>
-    //         </div>
-    //         <br />
-    //         <button
-    //           onClick={() => {
-    //             changeElementData(elementId, "data", inputDomObject[0].value);
-    //             changeElementData(elementId, "color", inputDomObject[1].value);
-    //             changeElementData(elementId, "size", inputDomObject[2].value);
-    //             changeElementData(elementId, "width", inputDomObject[3].value);
-    //             changeElementData(elementId, "height", inputDomObject[4].value);
-    //             changeElementData(elementId, "top", inputDomObject[5].value);
-    //             changeElementData(elementId, "left", inputDomObject[6].value);
-    //           }}
-    //         >
-    //           确定
-    //         </button>
-    //       </div>
-    //     );
-    // }
   };
 
   return (
@@ -172,3 +139,12 @@ export default function RightPanel({
     </div>
   );
 }
+
+const mapStateToProps = (data: any) => {
+  return {
+    state: data.StateReducer,
+    target: data.targetDOM,
+  };
+};
+
+export default connect(mapStateToProps)(RightPanel);

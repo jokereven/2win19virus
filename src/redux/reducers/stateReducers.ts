@@ -201,6 +201,8 @@ const StateReducer = (
     case stateConstantas.UPDATEMOUSEMOVE:
       newState.mouseMove = action.data;
       return newState;
+    case stateConstantas.UPDATETARGETDOM:
+      return newState;
     default:
       return newState;
   }

@@ -1,3 +1,4 @@
+import { Interface } from "readline";
 import { ElementType } from "types";
 
 const basicItems: ElementType[] = [
@@ -86,3 +87,155 @@ const basicItems: ElementType[] = [
 ];
 
 export default basicItems;
+
+export interface IEditField {
+  [x: string]: any;
+  prop: string;
+  name: string;
+  type: string;
+}
+
+export const basicEditFields: Record<string, IEditField[]> = {
+  div: [
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+  ],
+  h1: [
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+  ],
+  p: [
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+  ],
+  span: [
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+  ],
+  img: [
+    {
+      prop: "src",
+      name: "图片地址",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+    {
+      prop: "width",
+      name: "宽度",
+      type: "Number",
+    },
+    {
+      prop: "height",
+      name: "高度",
+      type: "Number",
+    },
+  ],
+  button: [
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+  ],
+  input: [
+    {
+      prop: "type",
+      name: "类型",
+      type: "Text",
+    },
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+    {
+      prop: "other.placeholder",
+      name: "提示",
+      type: "Text",
+    },
+  ],
+  select: [
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+    {
+      prop: "placeholder",
+      name: "提示",
+      type: "Text",
+    },
+    {
+      prop: "children",
+      name: "选项",
+      type: "EditableTable",
+      columns: [
+        {
+          title: "显示值",
+          dataIndex: "label",
+          editable: true,
+          width: "40%",
+        },
+        {
+          title: "选项值",
+          dataIndex: "value",
+          editable: true,
+          width: "40%",
+        },
+      ],
+    },
+  ],
+  Link: [
+    {
+      prop: "style",
+      name: "样式",
+      type: "Text",
+    },
+    {
+      prop: "to",
+      name: "链接",
+      type: "Text",
+    },
+    {
+      prop: "children",
+      name: "内容",
+      type: "Text",
+    },
+  ],
+};
