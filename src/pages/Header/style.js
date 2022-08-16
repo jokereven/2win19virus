@@ -19,6 +19,9 @@ export const HeaderEditWrapper = styled.div`
   margin-left: 20rem;
   align-items: center;
   justify-content: space-evenly;
+  .ml1 {
+    margin-left: 2rem;
+  }
 `;
 
 export const OpBtn = styled.button`

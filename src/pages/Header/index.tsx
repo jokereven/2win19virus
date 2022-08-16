@@ -1,4 +1,4 @@
-import { Drawer, Modal } from "antd";
+import { Alert, Drawer, Modal } from "antd";
 import Preview from "components/preview";
 import React, { Fragment, useState } from "react";
 import MonacoEditor, { monaco } from "react-monaco-editor";
@@ -11,6 +11,10 @@ import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
 
 export const Header: React.FC = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [build, setBuild] = useState(false);
+
+  const [clicksave, setClicksave] = useState(false);
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -30,15 +34,20 @@ export const Header: React.FC = (props: any) => {
     setVisible(false);
   };
 
+  const handleClose = () => {
+    setBuild(false);
+  };
+
   // save
   function save(save: string) {
     const state = store.getState();
     const data = [...state.StateReducer.stateNode.children];
-    console.log(data);
     if (data.length === 0) {
+      setBuild(true);
       localStorage.removeItem(save);
       return;
     }
+    setClicksave(true);
     var arr = [];
     for (var i = 0; i < data.length; i++) {
       // save to localstorage
@@ -132,7 +141,14 @@ export const Header: React.FC = (props: any) => {
 
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    var len = store.getState().StateReducer.stateNode.children.length;
+    if (len === 0) {
+      return;
+    }
     save("SAVE_COMPONENT");
+    setTimeout(function () {
+      setClicksave(false);
+    }, 500);
   };
 
   // build
@@ -140,6 +156,14 @@ export const Header: React.FC = (props: any) => {
     // 随机字符串
     var rstr = randomString(16);
     save(rstr);
+    setTimeout(function () {
+      setBuild(false);
+      setClicksave(false);
+    }, 500);
+    var len = store.getState().StateReducer.stateNode.children.length;
+    if (len === 0) {
+      return;
+    }
     const w = window.open("about:blank");
     w!.location.href = `/deploy/?id=${rstr}`;
   };
@@ -199,6 +223,28 @@ export const Header: React.FC = (props: any) => {
           >
             <Preview />
           </Modal>
+          {build ? (
+            <Alert
+              className="ml1"
+              banner
+              showIcon
+              message="没戏"
+              type="warning"
+              closable
+              afterClose={handleClose}
+            />
+          ) : null}
+          {clicksave ? (
+            <Alert
+              className="ml1"
+              banner
+              showIcon
+              message="okay"
+              type="success"
+              closable
+              afterClose={handleClose}
+            />
+          ) : null}
         </HeaderEditWrapper>
       </HeaderWrapper>
     </Fragment>
