@@ -207,6 +207,9 @@ const StateReducer = (
       return newState;
     case stateConstantas.UPDATETARGETDOM:
       return newState;
+    case stateConstantas.UNDO:
+      newState.stateNode.children = action.data.data;
+      return newState;
     default:
       return newState;
   }

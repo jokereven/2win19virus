@@ -8,4 +8,5 @@ export const stateConstantas = {
   DOWNDOM: "downDOM",
   UPDATEMOUSEMOVE: "updatemousemove",
   UPDATETARGETDOM: "updateTargetDOM",
+  UNDO: "undo",
 };

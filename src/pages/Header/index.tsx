@@ -114,7 +114,13 @@ export const Header: React.FC = (props: any) => {
     const len = state.StateReducer.undo_arr.length;
     const data = state.StateReducer.undo_arr[len - 1];
     // TODO 类似撤销
-    state.StateReducer.stateNode.children = [...data];
+    // state.StateReducer.stateNode.children = [...data];
+    store.dispatch({
+      type: stateConstantas.UNDO,
+      data: {
+        data,
+      },
+    });
   };
 
   // preview
