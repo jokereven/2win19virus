@@ -31,12 +31,17 @@ function MiddlePage(props: any) {
       var key = obj["key"];
       var tag = obj["tag"];
 
+      console.log(obj);
+
       // eslint-disable-next-line no-loop-func
       const dropObj: any = comps.find((value) => {
         return value.type === type;
       });
 
       console.log(dropObj);
+
+      dropObj.props.children = obj.children;
+      dropObj.props.other = obj.other;
 
       var saveDOM = addComponent(tag, dropObj);
       store.dispatch({
