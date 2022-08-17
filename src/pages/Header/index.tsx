@@ -144,8 +144,9 @@ export const Header: React.FC = (props: any) => {
   //save
   const SaveBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     var len = store.getState().StateReducer.stateNode.children.length;
+    console.log(store.getState());
     if (len === 0) {
-      return;
+      localStorage.removeItem("SAVE_COMPONENT");
     }
     save("SAVE_COMPONENT");
     setTimeout(function () {

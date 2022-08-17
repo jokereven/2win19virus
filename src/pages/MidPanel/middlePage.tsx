@@ -40,8 +40,12 @@ function MiddlePage(props: any) {
 
       console.log(dropObj);
 
-      dropObj.props.children = obj.children;
-      dropObj.props.other = obj.other;
+      if (dropObj.props.children?.length === 1) {
+        dropObj.props.children = obj.children;
+      }
+      if (dropObj.blink === true) {
+        dropObj.props.other = obj.other;
+      }
 
       var saveDOM = addComponent(tag, dropObj);
       store.dispatch({

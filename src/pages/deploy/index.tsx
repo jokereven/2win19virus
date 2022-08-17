@@ -37,6 +37,13 @@ function Deploy(props: any) {
         return value.type === type;
       });
 
+      if (dropObj.props.children?.length === 1) {
+        dropObj.props.children = obj.children;
+      }
+      if (dropObj.blink === true) {
+        dropObj.props.other = obj.other;
+      }
+
       var saveDOM = addComponent(tag, dropObj);
       store.dispatch({
         type: stateConstantas.ADDDOM,
