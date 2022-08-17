@@ -27,10 +27,10 @@ const antdItems: ElementType[] = [
     module: "antd",
     props: {
       other: {
-        options: [
-          { value: "man", label: "man" },
-          { value: "woman", label: "woman" },
-        ],
+        //   options: [
+        //     { value: "man", label: "man" },
+        //     { value: "woman", label: "woman" },
+        //   ],
       },
     },
   },

@@ -106,7 +106,7 @@ export function RightPanel(props: any) {
           <Tabs defaultActiveKey="1">
             <TabPane tab="属性" key="1">
               <div>
-                {basicEditFields[targetComponent.type].map(
+                {basicEditFields[targetComponent.type]?.map(
                   (item: IEditField) => {
                     const { name } = item;
                     return (
