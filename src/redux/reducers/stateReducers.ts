@@ -141,6 +141,7 @@ const StateReducer = (
     optLeft: number;
     generate_matlab: string;
     undo_arr: any[];
+    undo_status: string;
   } = {
     stateNode: new component(
       "div",
@@ -161,6 +162,7 @@ const StateReducer = (
     optTop: 0,
     generate_matlab: "",
     undo_arr: [],
+    undo_status: "",
   },
   action: {
     type: string;

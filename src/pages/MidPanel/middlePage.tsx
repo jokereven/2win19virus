@@ -156,7 +156,7 @@ function MiddlePage(props: any) {
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
         console.log(newDOM);
-        undoSave();
+        undoSave("add");
         if (optDom) {
           store.dispatch({
             type: stateConstantas.INSERT,
@@ -212,7 +212,7 @@ function MiddlePage(props: any) {
           <div
             className="optItem"
             onClick={() => {
-              undoSave();
+              undoSave("delete");
               store.dispatch({
                 type: stateConstantas.DELETEDOM,
                 data: {
