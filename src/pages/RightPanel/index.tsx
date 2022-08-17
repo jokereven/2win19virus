@@ -110,7 +110,7 @@ export function RightPanel(props: any) {
                   (item: IEditField) => {
                     const { name } = item;
                     return (
-                      <div className="">
+                      <div className="" key={name}>
                         <div>{name}:</div>
                         <div className="">{renderField(item)}</div>
                       </div>

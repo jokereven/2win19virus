@@ -6,6 +6,9 @@ export function update() {
   var generate_import_antd = GenerateImportTable();
   var gia = GenerateImportTable() ? `${generate_import_antd}` : "";
   var generate_import = GenerateImport();
+  if (generate_import === undefined) {
+    generate_import = [];
+  }
   var gen_rea_mat = store.getState().StateReducer.stateNode.d();
   gen_rea_mat = gen_rea_mat.replace(":", "=");
   const code = `import React from "react";

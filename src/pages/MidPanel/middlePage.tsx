@@ -36,6 +36,8 @@ function MiddlePage(props: any) {
         return value.type === type;
       });
 
+      console.log(dropObj);
+
       var saveDOM = addComponent(tag, dropObj);
       store.dispatch({
         type: stateConstantas.ADDDOM,
@@ -51,7 +53,9 @@ function MiddlePage(props: any) {
           var ctype = obj.children[j]["type"];
           var ckey = obj.children[j]["key"];
           var ctag = obj.children[j]["tag"];
-
+          if (ctype === "option") {
+            break;
+          }
           // eslint-disable-next-line no-loop-func
           const cdropObj: any = comps.find((value) => {
             return value.type === ctype;

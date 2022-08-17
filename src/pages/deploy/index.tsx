@@ -52,7 +52,9 @@ function Deploy(props: any) {
           var ctype = obj.children[j]["type"];
           var ckey = obj.children[j]["key"];
           var ctag = obj.children[j]["tag"];
-
+          if (ctype === "option") {
+            break;
+          }
           // eslint-disable-next-line no-loop-func
           const cdropObj: any = comps.find((value) => {
             return value.type === ctype;

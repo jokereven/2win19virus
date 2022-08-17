@@ -1,4 +1,3 @@
-import { Interface } from "readline";
 import { ElementType } from "types";
 
 const basicItems: ElementType[] = [
@@ -74,14 +73,6 @@ const basicItems: ElementType[] = [
     type: "span",
     props: {
       children: ["文本"],
-    },
-  },
-  {
-    type: "Link",
-    module: "react-router-dom",
-    props: {
-      to: "https://ant.design/components/overview-cn/",
-      children: ["链接"],
     },
   },
 ];
@@ -219,23 +210,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
           width: "40%",
         },
       ],
-    },
-  ],
-  Link: [
-    {
-      prop: "style",
-      name: "样式",
-      type: "Text",
-    },
-    {
-      prop: "to",
-      name: "链接",
-      type: "Text",
-    },
-    {
-      prop: "children",
-      name: "内容",
-      type: "Text",
     },
   ],
 };

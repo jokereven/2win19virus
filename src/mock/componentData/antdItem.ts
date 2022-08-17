@@ -74,11 +74,6 @@ const antdItems: ElementType[] = [
     },
   },
   {
-    type: "Form",
-    module: "antd",
-    props: {},
-  },
-  {
     type: "Form.Item",
     props: {
       other: {
