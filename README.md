@@ -69,4 +69,64 @@ yarn build
 ## 贡献者
 
 <!-- readme: collaborators,contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/weypro">
+            <img src="https://avatars.githubusercontent.com/u/22854837?v=4" width="100;" alt="weypro"/>
+            <br />
+            <sub><b>Wey</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jokereven">
+            <img src="https://avatars.githubusercontent.com/u/73232691?v=4" width="100;" alt="jokereven"/>
+            <br />
+            <sub><b>周靖</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/jacket-sikaha">
+            <img src="https://avatars.githubusercontent.com/u/77327970?v=4" width="100;" alt="jacket-sikaha"/>
+            <br />
+            <sub><b>Sikaha</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/summer-like-coding">
+            <img src="https://avatars.githubusercontent.com/u/81663777?v=4" width="100;" alt="summer-like-coding"/>
+            <br />
+            <sub><b>Summer</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/ofwater">
+            <img src="https://avatars.githubusercontent.com/u/91253015?v=4" width="100;" alt="ofwater"/>
+            <br />
+            <sub><b>Monskoda</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/chloeHXY">
+            <img src="https://avatars.githubusercontent.com/u/91829576?v=4" width="100;" alt="chloeHXY"/>
+            <br />
+            <sub><b>chloeHXY</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/codeclode">
+            <img src="https://avatars.githubusercontent.com/u/95865626?v=4" width="100;" alt="codeclode"/>
+            <br />
+            <sub><b>李傲松</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/fdlzp">
+            <img src="https://avatars.githubusercontent.com/u/44960833?v=4" width="100;" alt="fdlzp"/>
+            <br />
+            <sub><b>Douglas</b></sub>
+        </a>
+    </td></tr>
+</table>
 <!-- readme: collaborators,contributors -end -->
