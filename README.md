@@ -110,7 +110,7 @@ yarn build
         <a href="https://github.com/chloeHXY">
             <img src="https://avatars.githubusercontent.com/u/91829576?v=4" width="100;" alt="chloeHXY"/>
             <br />
-            <sub><b>chloeHXY</b></sub>
+            <sub><b>ChloeHXY</b></sub>
         </a>
     </td></tr>
 <tr>
