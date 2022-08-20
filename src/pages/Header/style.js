@@ -6,8 +6,9 @@ export const HeaderWrapper = styled.div`
     align-items: center;
     font-size: 1.6rem;
     font-weight: 600;
-    border-bottom: 2px solid #c8161d;
-    height: 5rem;
+    background-color: #fff;
+    height: 6.3rem;
+    box-shadow: 0 0 5px hsla(0, 0%, 60%, 0.2);
     box-sizing: border-box;
     padding: 0 2.4rem;
   }
@@ -27,10 +28,11 @@ export const HeaderEditWrapper = styled.div`
 export const OpBtn = styled.button`
   padding: 0 2rem;
   margin-left: 1rem;
-  height: 3rem;
+  height: 3.2rem;
+  font-size: 1.2rem;
   cursor: pointer;
   border: 1px solid #dfe0d9;
-  border-radius: 2px;
+  border-radius: 0.3rem;
   background-color: #fff;
   :hover {
     background-color: #c6e2ff;
