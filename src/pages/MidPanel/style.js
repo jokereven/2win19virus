@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const MidPanelWrapper = styled.div`
   height: 100vh;
   width: 50vw;
-  border-left: 2px solid #38a1db;
-  border-right: 2px solid #38a1db;
+  border-left: 1px solid #efefef;
+  border-right: 1px solid #efefef;
   &.noline {
     border: none;
     pointer-events: none;

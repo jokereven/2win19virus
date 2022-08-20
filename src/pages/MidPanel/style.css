@@ -7,12 +7,12 @@
   display: flex;
   position: absolute;
   /* visibility: hidden; */
-  border: 1px rgb(0, 0, 0, 0.5) solid;
+  border: 1px #efefef solid;
   border-radius: 2px;
 }
 
 #optList .optItem {
-  background-color: whitesmoke;
+  background-color: #fff;
   padding: 3px;
   cursor: pointer;
 }
@@ -28,7 +28,7 @@
 }
 
 #optList .optItem:not(:last-child) {
-  border-right: 1px rgb(0, 0, 0, 0.5) solid;
+  border-right: 1px #efefef solid;
 }
 
 .choose {
