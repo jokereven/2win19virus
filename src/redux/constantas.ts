@@ -9,4 +9,5 @@ export const stateConstantas = {
   UPDATEMOUSEMOVE: "updatemousemove",
   UPDATETARGETDOM: "updateTargetDOM",
   UNDO: "undo",
+  INDEX: "index",
 };

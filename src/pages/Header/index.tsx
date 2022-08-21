@@ -111,16 +111,43 @@ export const Header: React.FC = (props: any) => {
   const UndoBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     // Get State
     const state = store.getState();
-    const len = state.StateReducer.undo_arr.length;
-    const data = state.StateReducer.undo_arr[len - 1];
-    // TODO 类似撤销
-    // state.StateReducer.stateNode.children = [...data];
-    store.dispatch({
-      type: stateConstantas.UNDO,
-      data: {
-        data,
-      },
-    });
+    var undoarr = store.getState().StateReducer.undo_arr;
+    const len = store.getState().StateReducer.stateNode.children.length;
+    var index = state.StateReducer.undo_index;
+    const data = state.StateReducer.undo_arr[index];
+    if (index < 0) {
+      if (index < undoarr.length - 1) {
+        undoarr = undoarr.slice(0, index + 1);
+        store.dispatch({
+          type: stateConstantas.UNDO,
+          data: {
+            data: undoarr,
+          },
+        });
+      }
+    }
+    if (data === undefined) {
+      return;
+    }
+    if (index < 0 && len === 0) {
+      return;
+    }
+    if (index >= 0) {
+      index--;
+      // TODO 类似撤销
+      store.dispatch({
+        type: stateConstantas.UNDO,
+        data: {
+          data,
+        },
+      });
+      store.dispatch({
+        type: stateConstantas.INDEX,
+        data: {
+          index,
+        },
+      });
+    }
   };
 
   // preview

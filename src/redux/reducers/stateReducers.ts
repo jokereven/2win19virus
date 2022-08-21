@@ -142,6 +142,7 @@ const StateReducer = (
     generate_matlab: string;
     undo_arr: any[];
     undo_status: string;
+    undo_index: number;
   } = {
     stateNode: new component(
       "div",
@@ -163,6 +164,7 @@ const StateReducer = (
     generate_matlab: "",
     undo_arr: [],
     undo_status: "",
+    undo_index: -1,
   },
   action: {
     type: string;
@@ -209,6 +211,9 @@ const StateReducer = (
       return newState;
     case stateConstantas.UNDO:
       newState.stateNode.children = action.data.data;
+      return newState;
+    case stateConstantas.INDEX:
+      newState.undo_index = action.data.index;
       return newState;
     default:
       return newState;
