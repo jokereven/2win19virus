@@ -1,21 +1,30 @@
-import { ElementType, RIGHT_PANEL_TYPE } from "../../types";
-import React, { useState, useEffect, useRef } from "react";
+import component from "dataClass/componentClass";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-import component from "dataClass/componentClass";
-import basic from "../../mock/componentData/basic";
-import { IEditField, basicEditFields } from "../../mock/componentData/basic";
-import { findPropsByType, isValidKey } from "utils/findPropsByType";
+import { basicEditFields, IEditField } from "../../mock/componentData/basic";
 
 import "./style.css";
 
 import { Tabs } from "antd";
+import { useEffect } from "react";
 const { TabPane } = Tabs;
 
 export function RightPanel(props: any) {
   //创建引用，方便右面板修改
   let targetComponent = store.getState().StateReducer.targetDOM;
+
+  useEffect(() => {
+    console.log(store.getState());
+    // SetGetSearchVal(JSON.stringify(targetComponent?.style));
+    console.log(JSON.stringify(targetComponent?.style));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
+  // change style
+  const [GetSearchVal, SetGetSearchVal] = useState(targetComponent?.style);
+  const inputRef = React.useRef(null);
 
   //onChange处理
   const handleChange = (key: keyof component, value: any) => {
@@ -25,6 +34,7 @@ export function RightPanel(props: any) {
     //   targetComponent!['style'] = "height: '90px'";
     // }
     if (key === "children") {
+      console.log(targetComponent![key][0]);
       targetComponent![key][0] = value;
     } else {
       //根据配置项找到对应引用，并赋值
@@ -35,6 +45,38 @@ export function RightPanel(props: any) {
       }
       ref[keyArr[keyArr.length - 1]] = value;
     }
+    //修改引用后通知更新，触发重新渲染
+    store.dispatch({
+      type: stateConstantas.UPDATETARGETDOM,
+      data: {},
+    });
+  };
+
+  function IsJsonString(str: any) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+  const getIptValue = (key: keyof component, value: any) => {
+    // 判断是否为正确的json
+    var ok = IsJsonString(value);
+    if (ok) {
+      if (key === "children") {
+        // console.log(value);
+        // console.log(targetComponent?.style);
+        targetComponent!.style = JSON.parse(value);
+      }
+    }
+    SetGetSearchVal(value);
+  };
+
+  const submit = () => {
+    // const style = JSON.parse(GetSearchVal);
+    // console.log(typeof style, style);
+    console.log(targetComponent?.style);
     //修改引用后通知更新，触发重新渲染
     store.dispatch({
       type: stateConstantas.UPDATETARGETDOM,
@@ -58,8 +100,6 @@ export function RightPanel(props: any) {
   const renderField = (item: IEditField) => {
     const { prop, name, type, ...other } = item;
     if (targetComponent instanceof component) {
-      console.info("item:", item, "c", targetComponent);
-
       // 划分type
       switch (type) {
         case "Text":
@@ -96,6 +136,44 @@ export function RightPanel(props: any) {
     return <></>;
   };
 
+  const renderStyle = (item: IEditField) => {
+    const { prop, name, type, ...other } = item;
+    if (targetComponent instanceof component) {
+      console.info("item:", item, "style", targetComponent.style);
+      // 划分type
+      switch (type) {
+        case "Text":
+          //children特殊处理，取[0]
+          if (prop === "children") {
+            //还要判断children[0]是字符串还是component
+            if (typeof targetComponent[prop][0] == "string") {
+              return (
+                <div style={{ display: "flex" }}>
+                  <textarea
+                    value={GetSearchVal}
+                    ref={inputRef}
+                    onChange={(e) => {
+                      getIptValue(prop, e.target.value);
+                    }}
+                  />
+                  <button onClick={submit}>提交</button>
+                </div>
+              );
+            } else {
+              // 如果是component，则表示targetComponent[prop]不需要编辑
+              return <div>如需编辑该项，请删除所有子组件</div>;
+            }
+          } else {
+            return <div></div>;
+          }
+        case "EditableTable":
+          return <>Can't Edit</>;
+      }
+    }
+    return <></>;
+  };
+
+  // 右侧看板
   const generateRightPanel = () => {
     //顺便收缩类型
     if (targetComponent instanceof component) {
@@ -120,10 +198,19 @@ export function RightPanel(props: any) {
               </div>
             </TabPane>
             <TabPane tab="样式" key="2">
-              Content of Tab Pane 2
+              {basicEditFields[targetComponent.type]?.map(
+                (item: IEditField) => {
+                  const { name } = item;
+                  return (
+                    <div className="" key={name}>
+                      <div className="">{renderStyle(item)}</div>
+                    </div>
+                  );
+                }
+              )}
             </TabPane>
             <TabPane tab="事件" key="3">
-              Content of Tab Pane 3
+              Event
             </TabPane>
           </Tabs>
         </div>
