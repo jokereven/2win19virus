@@ -6,6 +6,8 @@ export const MidPanelWrapper = styled.div`
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
   &.noline {
+    width: 90%;
+    margin: 0 auto;
     border: none;
     pointer-events: none;
   }
