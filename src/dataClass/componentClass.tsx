@@ -263,8 +263,8 @@ export default class component {
     }
     if (this.other) {
       let eventKeys = Object.keys(this.other);
-      if (this.type === "Table") {
-        console.log(this.other);
+      if (this.type === "Table" || this.type === "Radio.Group") {
+        // console.log(this.other);
         eventKeys.forEach((value) => {
           resCode += ` ${value}={${value}}`;
         });
