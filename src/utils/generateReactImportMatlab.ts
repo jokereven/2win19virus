@@ -21,7 +21,11 @@ export function GenerateImport() {
     var isantd = dropObj?.module;
     if (isantd === "antd") {
       // eslint-disable-next-line no-useless-concat
-      arr.push(type);
+      if (type === "Radio.Group") {
+        arr.push("Radio");
+      } else {
+        arr.push(type);
+      }
     }
     au = unique(arr);
   }
