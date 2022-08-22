@@ -74,15 +74,6 @@ const antdItems: ElementType[] = [
     },
   },
   {
-    type: "Form.Item",
-    props: {
-      other: {
-        label: "Username",
-        name: "username",
-      },
-    },
-  },
-  {
     type: "Progress",
     module: "antd",
     props: {
