@@ -23,14 +23,14 @@ const antdItems: ElementType[] = [
     blink: true,
   },
   {
-    type: "Radio",
+    type: "Radio.Group",
     module: "antd",
     props: {
       other: {
-        //   options: [
-        //     { value: "man", label: "man" },
-        //     { value: "woman", label: "woman" },
-        //   ],
+        options: [
+          { value: "man", label: "man" },
+          { value: "woman", label: "woman" },
+        ],
       },
     },
   },
