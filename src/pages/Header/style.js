@@ -6,6 +6,7 @@ export const HeaderWrapper = styled.div`
     align-items: center;
     font-size: 1.6rem;
     font-weight: 600;
+    justify-content: space-around;
     background-color: #fff;
     height: 6.3rem;
     box-shadow: 0 0 5px hsla(0, 0%, 60%, 0.2);
@@ -17,7 +18,6 @@ export const HeaderWrapper = styled.div`
 // Header Edit
 export const HeaderEditWrapper = styled.div`
   display: flex;
-  margin-left: 20rem;
   align-items: center;
   justify-content: space-evenly;
   .ml1 {
