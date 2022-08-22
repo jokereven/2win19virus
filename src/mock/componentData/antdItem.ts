@@ -13,13 +13,21 @@ const antdItems: ElementType[] = [
   {
     type: "Input",
     module: "antd",
-    props: {},
+    props: {
+      other: {
+        placeholder: "Basic usage",
+      },
+    },
     blink: true,
   },
   {
     type: "InputNumber",
     module: "antd",
-    props: {},
+    props: {
+      other: {
+        defaultValue: 3,
+      },
+    },
     blink: true,
   },
   {
