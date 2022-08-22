@@ -1,10 +1,10 @@
 import { store } from "redux/store";
 import { GenerateImport } from "./generateReactImportMatlab";
-import { GenerateImportTable } from "./generateReactImportTable";
+import { GenerateImportTableAndRadio } from "./generateReactImportTable";
 
 export function update() {
-  var generate_import_antd = GenerateImportTable();
-  var gia = GenerateImportTable() ? `${generate_import_antd}` : "";
+  var generate_import_antd = GenerateImportTableAndRadio();
+  var gia = GenerateImportTableAndRadio() ? `${generate_import_antd}` : "";
   var generate_import = GenerateImport();
   if (generate_import === undefined) {
     generate_import = [];

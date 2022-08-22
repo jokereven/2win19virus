@@ -23,14 +23,14 @@ const antdItems: ElementType[] = [
     blink: true,
   },
   {
-    type: "Radio",
+    type: "Radio.Group",
     module: "antd",
     props: {
       other: {
-        //   options: [
-        //     { value: "man", label: "man" },
-        //     { value: "woman", label: "woman" },
-        //   ],
+        options: [
+          { value: "man", label: "man" },
+          { value: "woman", label: "woman" },
+        ],
       },
     },
   },
@@ -70,15 +70,6 @@ const antdItems: ElementType[] = [
             address: "西湖区湖底公园1号",
           },
         ],
-      },
-    },
-  },
-  {
-    type: "Form.Item",
-    props: {
-      other: {
-        label: "Username",
-        name: "username",
       },
     },
   },
