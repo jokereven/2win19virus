@@ -30,6 +30,7 @@ function MiddlePage(props: any) {
       var type = obj["type"];
       var key = obj["key"];
       var tag = obj["tag"];
+      var style = obj["style"];
 
       console.log(obj);
 
@@ -48,6 +49,7 @@ function MiddlePage(props: any) {
       }
 
       var saveDOM = addComponent(tag, dropObj);
+      saveDOM.style = style;
       store.dispatch({
         type: stateConstantas.ADDDOM,
         data: {
