@@ -1,4 +1,5 @@
 import { ElementType } from "types";
+import {IEditField} from "./type"
 
 const basicItems: ElementType[] = [
   {
@@ -79,12 +80,6 @@ const basicItems: ElementType[] = [
 
 export default basicItems;
 
-export interface IEditField {
-  [x: string]: any;
-  prop: string;
-  name: string;
-  type: string;
-}
 
 export const basicEditFields: Record<string, IEditField[]> = {
   div: [
@@ -93,11 +88,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
       name: "内容",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
   ],
   h1: [
     {
@@ -112,11 +102,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
       name: "内容",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
   ],
   span: [
     {
@@ -124,33 +109,13 @@ export const basicEditFields: Record<string, IEditField[]> = {
       name: "内容",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
   ],
   img: [
     {
-      prop: "src",
+      prop: "other.src",
       name: "图片地址",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
-    // {
-    //   prop: "width",
-    //   name: "宽度",
-    //   type: "Number",
-    // },
-    // {
-    //   prop: "height",
-    //   name: "高度",
-    //   type: "Number",
-    // },
   ],
   button: [
     {
@@ -158,11 +123,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
       name: "内容",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
   ],
   input: [
     {
@@ -170,11 +130,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
       name: "类型",
       type: "Text",
     },
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
     {
       prop: "other.placeholder",
       name: "提示",
@@ -182,11 +137,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
     },
   ],
   select: [
-    // {
-    //   prop: "style",
-    //   name: "样式",
-    //   type: "Text",
-    // },
     {
       prop: "placeholder",
       name: "提示",
@@ -214,10 +164,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
   ],
 };
 
-export interface IEventField {
-  [x: string]: any;
-  onClick?: string;
-}
 
 export const basicEventFields: Record<string, IEditField[]> = {
   button: [
@@ -233,5 +179,5 @@ export const basicEventFields: Record<string, IEditField[]> = {
       name: "输入改变事件onChange",
       type: "Textarea",
     },
-  ]
-}
+  ],
+};

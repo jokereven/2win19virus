@@ -225,7 +225,7 @@ function MiddlePage(props: any) {
           >
             删除
           </div>
-          <div className="optItem">...</div>
+          <div className="optItem">关闭</div>
         </div>
       );
     }

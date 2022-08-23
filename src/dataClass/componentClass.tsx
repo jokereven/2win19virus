@@ -1,5 +1,5 @@
 import * as antd from "antd";
-import { IEventField } from "mock/componentData/basic";
+import { IEventField } from "mock/componentData/type";
 import { stateConstantas } from "redux/constantas";
 import { search } from "redux/reducers/stateReducers";
 import { store } from "redux/store";

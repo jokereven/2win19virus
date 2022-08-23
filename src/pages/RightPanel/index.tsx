@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-import { basicEditFields, IEditField, basicEventFields } from "../../mock/componentData/basic";
+import { basicEditFields, basicEventFields } from "../../mock/componentData/basic";
+import { IEditField } from "../../mock/componentData/type";
 
 import "./style.css";
 
-import { Tabs,Input } from "antd";
+import { Tabs, Input } from "antd";
 import { useEffect } from "react";
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -40,7 +41,15 @@ export function RightPanel(props: any) {
       for (let i = 0; i < keyArr.length - 1; i++) {
         ref = ref[keyArr[i]];
       }
-      ref[keyArr[keyArr.length - 1]] = value;
+      //如果是event，则转成Function再赋值
+      if (key.indexOf("event") !== -1) {
+        value = eval(value);
+        ref[keyArr[keyArr.length - 1]] = value;
+      }
+      //普通文本直接赋值
+      else {
+        ref[keyArr[keyArr.length - 1]] = value;
+      }
     }
     //修改引用后通知更新，触发重新渲染
     store.dispatch({

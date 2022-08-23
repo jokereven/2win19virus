@@ -1,4 +1,6 @@
 import { ElementType } from "types";
+import {IEditField} from "./type"
+
 const antdItems: ElementType[] = [
   {
     type: "Button",
@@ -97,3 +99,5 @@ const antdItems: ElementType[] = [
 ];
 
 export default antdItems;
+
+
