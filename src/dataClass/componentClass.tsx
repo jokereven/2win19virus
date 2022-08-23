@@ -2,6 +2,9 @@ import * as antd from "antd";
 import { stateConstantas } from "redux/constantas";
 import { search } from "redux/reducers/stateReducers";
 import { store } from "redux/store";
+import { IEventField } from "mock/componentData/basic";
+
+
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
     el.offsetParent &&
@@ -30,7 +33,7 @@ export default class component {
   key: number;
   style: any;
   children: Array<component | string>;
-  event: Object = {};
+  event: IEventField = {};
   blink: boolean;
   other: any;
   choose: boolean = false;
