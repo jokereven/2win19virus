@@ -21,6 +21,7 @@ function Deploy(props: any) {
       return;
     }
     var rander_component = JSON.parse(RANDER_COMPONENT);
+
     // addDom
     if (rander_component == null) {
       return;
@@ -31,6 +32,7 @@ function Deploy(props: any) {
       var type = obj["type"];
       var key = obj["key"];
       var tag = obj["tag"];
+      var style = obj["style"];
 
       // eslint-disable-next-line no-loop-func
       const dropObj: any = comps.find((value) => {
@@ -45,6 +47,7 @@ function Deploy(props: any) {
       }
 
       var saveDOM = addComponent(tag, dropObj);
+      saveDOM.style = style;
       store.dispatch({
         type: stateConstantas.ADDDOM,
         data: {
@@ -130,7 +133,6 @@ function Deploy(props: any) {
         return value.type === monitor.getItemType();
       });
 
-      console.log(dropObj);
       var optDom = store.getState().StateReducer.mouseMove.optDOM;
       var method = store.getState().StateReducer.mouseMove.method;
       if (optDom) {
@@ -145,7 +147,6 @@ function Deploy(props: any) {
       }
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
-        console.log(newDOM);
         if (optDom) {
           store.dispatch({
             type: stateConstantas.INSERT,
