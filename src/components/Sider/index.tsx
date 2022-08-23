@@ -9,7 +9,7 @@ const { TabPane } = Tabs;
 const Sider: React.FC = () => {
   return (
     <>
-      <Tabs tabPosition="left">
+      <Tabs tabPosition="left" style={{ height: "100%" }}>
         <TabPane tab={<Html5Outlined style={{ fontSize: "28px" }} />} key="1">
           <DragPanel data={[...basic]} />
         </TabPane>

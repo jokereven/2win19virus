@@ -16,7 +16,7 @@ export default function DragItem({ data }: Props) {
 
   return (
     <div className="componentWrapper" ref={drag}>
-      {data.type}
+      {data.type === "Radio.Group" ? "Radio" : data.type}
     </div>
   );
 }
