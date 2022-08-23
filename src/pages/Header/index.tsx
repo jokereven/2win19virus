@@ -251,7 +251,7 @@ export const Header: React.FC = (props: any) => {
           </Drawer>
           <Modal
             width={750}
-            mask
+            // mask={false}
             title="2win19virus"
             visible={isModalVisible}
             onOk={handleOk}

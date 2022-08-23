@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { stateConstantas } from "redux/constantas";
 import { store } from "redux/store";
-import { basicEditFields, IEditField } from "../../mock/componentData/basic";
+import { basicEditFields, IEditField, basicEventFields } from "../../mock/componentData/basic";
 
 import "./style.css";
 
-import { Tabs } from "antd";
+import { Tabs,Input } from "antd";
 import { useEffect } from "react";
 const { TabPane } = Tabs;
+const { TextArea } = Input;
 
 export function RightPanel(props: any) {
   //创建引用，方便右面板修改
@@ -29,10 +30,6 @@ export function RightPanel(props: any) {
   //onChange处理
   const handleChange = (key: keyof component, value: any) => {
     //对于children要特殊处理，应处理第0个元素
-    console.log(value);
-    // if (key === "style") {
-    //   targetComponent!['style'] = "height: '90px'";
-    // }
     if (key === "children") {
       console.log(targetComponent![key][0]);
       targetComponent![key][0] = value;
@@ -108,7 +105,7 @@ export function RightPanel(props: any) {
             //还要判断children[0]是字符串还是component
             if (typeof targetComponent[prop][0] == "string") {
               return (
-                <input
+                <Input
                   key={targetComponent.key}
                   value={targetComponent[prop][0] as string}
                   onChange={(e) => handleChange(prop, e.target.value)}
@@ -120,7 +117,7 @@ export function RightPanel(props: any) {
             }
           } else {
             return (
-              <input
+              <Input
                 key={targetComponent.key}
                 value={getValueFromComponentByProps(targetComponent, prop)}
                 onChange={(e) =>
@@ -149,7 +146,7 @@ export function RightPanel(props: any) {
             if (typeof targetComponent[prop][0] == "string") {
               return (
                 <div style={{ display: "flex" }}>
-                  <textarea
+                  <TextArea
                     value={GetSearchVal}
                     ref={inputRef}
                     onChange={(e) => {
@@ -172,6 +169,28 @@ export function RightPanel(props: any) {
     }
     return <></>;
   };
+
+  const renderEvent = (item: IEditField) => {
+    const { prop, name, type, ...other } = item;
+    if (targetComponent instanceof component) {
+      // 划分type
+      switch (type) {
+        case "Textarea":
+          return <div>
+            <TextArea
+              value={targetComponent.event.onClick}
+              onChange={(e) => {
+                handleChange(prop as keyof component, e.target.value);
+              }}
+            />
+          </div>
+        case "EditableTable":
+          return <></>;
+      }
+    }
+    return <></>;
+  };
+
 
   // 右侧看板
   const generateRightPanel = () => {
@@ -210,10 +229,36 @@ export function RightPanel(props: any) {
               )}
             </TabPane>
             <TabPane tab="事件" key="3">
-              Event
+              {basicEventFields[targetComponent.type] ?
+                <div>
+                  <div>
+                    示例：
+                  </div>
+                  <div>
+                    {`() => {
+                    alert("hello");
+                    }`}
+                  </div>
+                </div> :
+                <div>
+                  该组件不支持添加事件
+                </div>}
+              <div>
+                {basicEventFields[targetComponent.type]?.map(
+                  (item: IEditField) => {
+                    const { name } = item;
+                    return (
+                      <div className="" key={name}>
+                        <div>{name}:</div>
+                        <div className="">{renderEvent(item)}</div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
             </TabPane>
           </Tabs>
-        </div>
+        </div >
       );
     } else {
       return <div>请选择组件，注意，点击空白区域后默认选中根组件</div>;

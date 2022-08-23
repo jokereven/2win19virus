@@ -10,7 +10,8 @@ export function update() {
     generate_import = [];
   }
   var gen_rea_mat = store.getState().StateReducer.stateNode.d();
-  gen_rea_mat = gen_rea_mat.replace(":", "=");
+  //用正则替换所有":"
+  gen_rea_mat = gen_rea_mat.replace(/:/g, "=");
   const code = `import React from "react";
 import {${generate_import}} from 'antd'
 ${gia}
