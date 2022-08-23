@@ -1,9 +1,8 @@
 import * as antd from "antd";
+import { IEventField } from "mock/componentData/basic";
 import { stateConstantas } from "redux/constantas";
 import { search } from "redux/reducers/stateReducers";
 import { store } from "redux/store";
-import { IEventField } from "mock/componentData/basic";
-
 
 function getElementTop(el: any, offsetMid: boolean = true): number {
   if (
@@ -247,9 +246,10 @@ export default class component {
         resCode += " style={";
         let styleKeys = Object.keys(this.style);
         styleKeys.forEach((value) => {
-          resCode += `${value}:"${
+          resCode += `"${value}":"${
             this.style[value as keyof typeof this.style]
-          },"`;
+          }",`;
+          resCode = resCode.slice(0, -1);
         });
         resCode += "}";
       }
