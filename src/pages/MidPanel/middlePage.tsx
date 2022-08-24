@@ -32,14 +32,10 @@ function MiddlePage(props: any) {
       var tag = obj["tag"];
       var style = obj["style"];
 
-      console.log(obj);
-
       // eslint-disable-next-line no-loop-func
       const dropObj: any = comps.find((value) => {
         return value.type === type;
       });
-
-      console.log(dropObj);
 
       if (dropObj.props.children?.length === 1) {
         dropObj.props.children = obj.children;
@@ -49,6 +45,8 @@ function MiddlePage(props: any) {
       }
 
       var saveDOM = addComponent(tag, dropObj);
+
+      console.log(saveDOM);
       saveDOM.style = style;
       store.dispatch({
         type: stateConstantas.ADDDOM,
@@ -142,7 +140,6 @@ function MiddlePage(props: any) {
         return value.type === monitor.getItemType();
       });
 
-      console.log(dropObj);
       var optDom = store.getState().StateReducer.mouseMove.optDOM;
       var method = store.getState().StateReducer.mouseMove.method;
       if (optDom) {
@@ -157,7 +154,6 @@ function MiddlePage(props: any) {
       }
       if (dropObj !== undefined) {
         var newDOM = addComponent(target, dropObj);
-        console.log(newDOM);
         undoSave("add");
         if (optDom) {
           store.dispatch({

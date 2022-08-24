@@ -23,5 +23,4 @@ export function undoSave(type: string) {
   } else {
   }
   store.getState().StateReducer.undo_status = status;
-  console.log(undoArr);
 }

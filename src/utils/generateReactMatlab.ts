@@ -28,7 +28,6 @@ export function generate_react_matlab(GenObj: any) {
       const gen_blink_dom = `<${gen_type}${str}></${gen_type}>`;
       generate_matlab += gen_blink_dom + "\n\t\t\t";
     } else if (dropObj?.type === "select") {
-      console.log(dropObj);
       const chi = dropObj.props.children;
       for (i = 0; i < chi.length; i++) {
         console.log(chi[i]);

@@ -14,7 +14,7 @@ to win 2019 virus
 
 地址：[https://2win19virus.vercel.app](https://2win19virus.vercel.app)
 
-视频介绍：[欢迎点赞、收藏、投币三连]()
+视频介绍：[欢迎点赞、收藏、投币三连](https://www.bilibili.com/video/BV1bd4y1d7Ju/)
 
 ## 项目背景.
 
@@ -106,13 +106,6 @@ yarn build
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/jacket-sikaha">
-            <img src="https://avatars.githubusercontent.com/u/77327970?v=4" width="100;" alt="jacket-sikaha"/>
-            <br />
-            <sub><b>Sikaha</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/summer-like-coding">
             <img src="https://avatars.githubusercontent.com/u/81663777?v=4" width="100;" alt="summer-like-coding"/>
             <br />
@@ -141,12 +134,16 @@ yarn build
             <sub><b>李傲松</b></sub>
         </a>
     </td>
-    <td align="center">
-        <a href="https://github.com/fdlzp">
-            <img src="https://avatars.githubusercontent.com/u/44960833?v=4" width="100;" alt="fdlzp"/>
-            <br />
-            <sub><b>Douglas</b></sub>
-        </a>
-    </td></tr>
 </table>
+
 <!-- readme: collaborators,contributors -end -->
+
+### reference
+
+https://lowcode-engine.cn/demo/index.html
+
+https://idou100.netlify.app
+
+https://woai3c.github.io/visual-drag-demo
+
+https://github.com/woai3c/visual-drag-demo
