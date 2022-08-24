@@ -101,10 +101,10 @@ function MiddlePage(props: any) {
     target === null
       ? {}
       : {
-          height: "30px",
-          top: props.state.optTop - (props.state.optTop <= 0 ? 0 : 30),
-          left: props.state.optLeft,
-        };
+        height: "30px",
+        top: props.state.optTop - (props.state.optTop <= 0 ? 0 : 30),
+        left: props.state.optLeft,
+      };
   const [, drop] = useDrop(() => ({
     // accept: Object.values(leftType), // drop接受的type
     accept: types,
