@@ -8,7 +8,6 @@ import { store } from "redux/store";
 import { randomString } from "./../../utils/randomString";
 import { update } from "./../../utils/update";
 import { HeaderEditWrapper, HeaderWrapper, OpBtn } from "./style";
-
 export const Header: React.FC = (props: any) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -79,6 +78,12 @@ export const Header: React.FC = (props: any) => {
       return value;
     };
   };
+
+  // clear all data
+  const ClearAllDataBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    localStorage.clear();
+  };
+
 
   // clear
   const ClearBtnClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -232,6 +237,7 @@ export const Header: React.FC = (props: any) => {
           <OpBtn onClick={ClearBtnClick}>清空画板</OpBtn>
           <OpBtn onClick={BuildBtnClick}>部署</OpBtn>
           <OpBtn onClick={GenerateClick}>生成react源码</OpBtn>
+          <OpBtn onClick={ClearAllDataBtnClick}>清空缓存</OpBtn>
           <Drawer
             title="2win19virus"
             placement="left"

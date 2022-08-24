@@ -1,5 +1,5 @@
 import { ElementType } from "types";
-import {IEditField} from "./type"
+import { IEditField } from "./type";
 
 const basicItems: ElementType[] = [
   {
@@ -66,7 +66,7 @@ const basicItems: ElementType[] = [
       other: {
         width: "100",
         height: "100",
-        src: "https://www.baidu.com/img/PCpad_012830ebaa7e4379ce9a9ed1b71f7507.png",
+        src: "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/e08da34488b114bd4c665ba2fa520a31.svg",
       },
     },
   },
@@ -77,8 +77,6 @@ const basicItems: ElementType[] = [
     },
   },
 ];
-
-export default basicItems;
 
 
 export const basicEditFields: Record<string, IEditField[]> = {
@@ -126,9 +124,32 @@ export const basicEditFields: Record<string, IEditField[]> = {
   ],
   input: [
     {
-      prop: "type",
+      prop: "other.type",
       name: "类型",
-      type: "Text",
+      type: "Select",
+      defaultValue: "text",
+      options: [
+        {
+          value: "text",
+          label: "text",
+        },
+        {
+          value: "password",
+          label: "password",
+        },
+        {
+          value: "file",
+          label: "file",
+        },
+        {
+          value: "reset",
+          label: "reset",
+        },
+        {
+          value: "submit",
+          label: "submit",
+        },
+      ],
     },
     {
       prop: "other.placeholder",
@@ -164,7 +185,6 @@ export const basicEditFields: Record<string, IEditField[]> = {
   ],
 };
 
-
 export const basicEventFields: Record<string, IEditField[]> = {
   button: [
     {
@@ -181,3 +201,5 @@ export const basicEventFields: Record<string, IEditField[]> = {
     },
   ],
 };
+
+export default basicItems;

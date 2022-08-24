@@ -1,27 +1,25 @@
-import { Header } from "pages/Header";
-import MiddlePage from "pages/MidPanel/middlePage";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// Pages
+import { Header } from "pages/Header";
+import LeftPanel from "./pages/LeftPanel";
+import MiddlePage from "pages/MidPanel/middlePage";
+import RightPanel from "./pages/RightPanel";
+import Deploy from "pages/deploy";
 // React dnd
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-// App scrollbar css
+
 import { Provider } from "react-redux";
-import "./App.css";
 import { store } from "./redux/store";
 // mock
 import { NotFound } from "components/404";
-import Deploy from "pages/deploy";
-import drawData from "./mock/drawData.json";
-import { LeftPanel } from "./pages/LeftPanel";
-import RightPanel from "./pages/RightPanel";
+// import drawData from "./mock/drawData.json";
+import "./App.css";
+// App scrollbar css
 import "./scrollbar.css";
-import { RIGHT_PANEL_TYPE } from "./types";
 
 const App: React.FC = () => {
-  const [drawPanelData, setDrawPanelData] = useState([...drawData.data]);
-  const [rightPanelType, setRightPanelType] = useState(RIGHT_PANEL_TYPE.TEXT);
-  const [rightRanelElementId, setRightRanelElementId] = useState("");
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -37,12 +35,7 @@ const App: React.FC = () => {
                     <div className="content">
                       <LeftPanel />
                       <MiddlePage></MiddlePage>
-                      <RightPanel
-                        type={rightPanelType}
-                        data={drawPanelData}
-                        elementId={rightRanelElementId}
-                        setDrawPanelData={setDrawPanelData}
-                      />
+                      <RightPanel></RightPanel>
                     </div>
                   </Fragment>
                 }
