@@ -36,7 +36,7 @@ to win 2019 virus
 
 ### 首页
 
-![](https://github.com/jokereven/2win19virus/blob/master/screenshots/main.png)
+![](https://github.com/jokereven/2win19virus/blob/main/screenshots/main.png)
 
 ### 选中之后拖入组件内
 
